@@ -12,7 +12,7 @@ class ProgrammeController extends Controller
     public function index()
     {
         $programmes = Programme::all();
-        return view('pages.programme', compact('programmes'));
+        return view('user.pages.programme', compact('programmes'));
     }
     public function create()
     {
@@ -34,7 +34,7 @@ class ProgrammeController extends Controller
     public function show($id)
     {
         $programme = Programme::findOrFail($id);
-        return view('pages.programmeDetail', compact('programme'));
+        return view('user.pages.programmeDetail', compact('programme'));
     }
 
     public function edit(Programme $programme)

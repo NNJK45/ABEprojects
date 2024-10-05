@@ -11,7 +11,7 @@ class EvenementController extends Controller
     public function index()
     {
         $evenements = Evenement::all();
-        return view('pages.evenement', compact('evenements'));
+        return view('user.pages.evenement', compact('evenements'));
     }
     public function create()
     {
@@ -37,7 +37,7 @@ class EvenementController extends Controller
     public function show($id)
     {
         $event = Programme::findOrFail($id);
-        return view('pages.eventDetails', compact('event'));
+        return view('user.pages.eventDetails', compact('event'));
     }
 
     public function edit(Evenement $evenement)
