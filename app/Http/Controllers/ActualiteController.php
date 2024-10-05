@@ -11,7 +11,7 @@ class ActualiteController extends Controller
     public function index()
     {
         $actualites = Actualite::all();
-        return view('pages.news', compact('actualites'));
+        return view('user.pages.news', compact('actualites'));
     }
 
     public function create()
