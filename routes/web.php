@@ -21,9 +21,9 @@ Route::get('/', function () {
 })->name('home');
 
 
-Route::get('/admin', function() {
-    return view('/pages/AdminPages/home');
-} );
+// Route::get('/admin', function() {
+//     return view('/pages/AdminPages/home');
+// } );
 
 Route::get('/contact', function () {
     return view('pages/contact');
@@ -46,7 +46,7 @@ Route::get('/newsDetail', function () {
 //})->name('event');
 
 Route::get('/about', function () {
-    return view('/pages/programmeDetail');
+    return view('/pages/about');
 })->name('about');
 
 Route::get('/programme', [ProgrammeController::class, 'index'])->name('programme');
