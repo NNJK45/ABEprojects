@@ -2,10 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Evenement;
+use App\Models\Programme;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Evenement>
+ * @extends Factory<Evenement>
  */
 class EvenementFactory extends Factory
 {
@@ -19,7 +21,7 @@ class EvenementFactory extends Factory
         return [
             //
 
-            'programme_id' => \App\Models\Programme::factory(),
+            'programme_id' => Programme::factory(),
             'titre' => $this->faker->sentence,
             'description' => $this->faker->text(200),
             'lieu' => $this->faker->city,

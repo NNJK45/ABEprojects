@@ -6,9 +6,9 @@ Plateforme web de l'Académie du Bien-Être (ABE). Le projet contient un site pu
 
 ## Stack technique
 
-- PHP 8.1 ou supérieur (PHP 8.2 validé)
+- PHP 8.2 ou supérieur
 - Composer 2
-- Laravel 10
+- Laravel 12
 - SQLite avec l'extension PHP `pdo_sqlite`
 - Node.js 18 ou supérieur (Node.js 22 validé)
 - npm 9 ou supérieur
@@ -99,6 +99,8 @@ npm audit
 ```
 
 Le build Vite et la suite de tests actuelle passent. La couverture reste minimale et devra être étendue avec les fonctionnalités métier.
+
+La CI exécute également les migrations, les audits de sécurité PHP/JavaScript et le contrôle de style. Les consignes serveur et le retour arrière sont documentés dans [`docs/phase-7-production-readiness.md`](docs/phase-7-production-readiness.md).
 
 ## Base de données
 

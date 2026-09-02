@@ -2,10 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Commentaire;
+use App\Models\Evenement;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Commentaire>
+ * @extends Factory<Commentaire>
  */
 class CommentaireFactory extends Factory
 {
@@ -18,7 +20,7 @@ class CommentaireFactory extends Factory
     {
         return [
             //
-            'evenement_id' => \App\Models\Evenement::factory(),
+            'evenement_id' => Evenement::factory(),
             'contenu' => $this->faker->paragraph,
         ];
     }

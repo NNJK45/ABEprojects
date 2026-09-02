@@ -104,4 +104,21 @@ class PublicExperienceTest extends TestCase
             ->assertDontSee('Lorem Ipsum')
             ->assertDontSee('news-details.html');
     }
+
+    public function test_public_responses_include_security_headers(): void
+    {
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertHeader('X-Content-Type-Options', 'nosniff')
+            ->assertHeader('X-Frame-Options', 'SAMEORIGIN')
+            ->assertHeader('Referrer-Policy', 'strict-origin-when-cross-origin')
+            ->assertHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+    }
+
+    public function test_health_endpoint_checks_database_connectivity(): void
+    {
+        $this->getJson(route('health'))
+            ->assertOk()
+            ->assertExactJson(['status' => 'ok']);
+    }
 }
