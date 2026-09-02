@@ -102,6 +102,8 @@ Le build Vite et la suite de tests actuelle passent. La couverture reste minimal
 
 La CI exécute également les migrations, les audits de sécurité PHP/JavaScript et le contrôle de style. Les consignes serveur et le retour arrière sont documentés dans [`docs/phase-7-production-readiness.md`](docs/phase-7-production-readiness.md).
 
+La recette métier et visuelle à réaliser avec l'équipe ABE est disponible dans [`docs/phase-8-client-acceptance.md`](docs/phase-8-client-acceptance.md).
+
 ## Base de données
 
 Le développement local utilise SQLite. Laravel calcule automatiquement le chemin absolu vers `database/database.sqlite`, ce qui rend la configuration portable entre Windows, Linux et macOS.
