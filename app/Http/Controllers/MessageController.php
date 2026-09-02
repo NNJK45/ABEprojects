@@ -24,8 +24,8 @@ class MessageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required',
-            'contenu' => 'required',
+            'user_id' => 'required|exists:users,id',
+            'contenu' => 'required|string',
         ]);
 
         Message::create($request->all());
@@ -42,8 +42,8 @@ class MessageController extends Controller
     public function update(Request $request, Message $message)
     {
         $request->validate([
-            'user_id' => 'required',
-            'contenu' => 'required',
+            'user_id' => 'required|exists:users,id',
+            'contenu' => 'required|string',
         ]);
 
         $message->update($request->all());

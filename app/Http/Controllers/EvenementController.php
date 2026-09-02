@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evenement;
-use App\Models\Programme;
 use Illuminate\Http\Request;
 
 class EvenementController extends Controller
@@ -29,7 +28,7 @@ class EvenementController extends Controller
             'description' => 'required|string',
             'lieu' => 'required|string|max:255',
             'date' => 'required|date',
-            'année-event' => 'required|date_format:Y',
+            'annee_event' => 'required|integer|digits:4',
             'image' => 'required|string|max:255',
         ]);
 
@@ -40,7 +39,7 @@ class EvenementController extends Controller
 
     public function show($id)
     {
-        $event = Programme::findOrFail($id);
+        $event = Evenement::findOrFail($id);
 
         return view('user.pages.eventDetails', compact('event'));
     }
@@ -58,7 +57,7 @@ class EvenementController extends Controller
             'description' => 'required|string',
             'lieu' => 'required|string|max:255',
             'date' => 'required|date',
-            'année-event' => 'required|date_format:Y',
+            'annee_event' => 'required|integer|digits:4',
             'image' => 'required|string|max:255',
         ]);
 

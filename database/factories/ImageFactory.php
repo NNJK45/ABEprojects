@@ -19,9 +19,8 @@ class ImageFactory extends Factory
         return [
             //
             'url' => $this->faker->imageUrl,
-            'evenement_id' => \App\Models\Evenement::factory(),
-            'actualite_id' => \App\Models\Actualite::factory(),
-
+            'evenement_id' => null,
+            'actualite_id' => null,
         ];
     }
 }

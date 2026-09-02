@@ -24,7 +24,7 @@ class EvenementFactory extends Factory
             'description' => $this->faker->text(200),
             'lieu' => $this->faker->city,
             'date' => $this->faker->date,
-            'année-event' => $this->faker->year,
+            'annee_event' => (int) $this->faker->year,
             'image' => $this->faker->imageUrl,
         ];
     }

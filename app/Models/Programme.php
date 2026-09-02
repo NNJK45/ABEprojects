@@ -15,9 +15,4 @@ class Programme extends Model
     {
         return $this->hasMany(Evenement::class);
     }
-
-    public function images()
-    {
-        return $this->hasMany(Image::class);
-    }
 }

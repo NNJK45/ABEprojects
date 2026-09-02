@@ -9,5 +9,14 @@ class Actualite extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['titre', 'contenu', 'date_publication'];
+    protected $fillable = ['titre', 'contenu', 'date_publication', 'image'];
+
+    protected $casts = [
+        'date_publication' => 'date',
+    ];
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
 }

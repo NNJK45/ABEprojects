@@ -29,8 +29,8 @@ class ImageController extends Controller
     {
         $request->validate([
             'url' => 'required|string|max:255',
-            'evenement_id' => 'nullable|exists:evenements,id',
-            'actualite_id' => 'nullable|exists:actualites,id',
+            'evenement_id' => 'nullable|required_without:actualite_id|prohibited_with:actualite_id|exists:evenements,id',
+            'actualite_id' => 'nullable|required_without:evenement_id|prohibited_with:evenement_id|exists:actualites,id',
         ]);
 
         Image::create($request->all());

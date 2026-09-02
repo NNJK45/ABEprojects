@@ -2,7 +2,11 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Actualite;
+use App\Models\Commentaire;
+use App\Models\Evenement;
+use App\Models\Image;
+use App\Models\Programme;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,26 +16,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $programmes = Programme::factory(3)->create();
+        $evenements = Evenement::factory(10)->recycle($programmes)->create();
+        $actualites = Actualite::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Commentaire::factory(10)->recycle($evenements)->create();
 
-        // Seeder pour la table programmes
-        \App\Models\Programme::factory(3)->create();
+        Image::factory(5)
+            ->sequence(fn () => [
+                'evenement_id' => $evenements->random()->id,
+                'actualite_id' => null,
+            ])
+            ->create();
 
-        // Seeder pour la table evenements
-        \App\Models\Evenement::factory(10)->create();
-
-        // Seeder pour la table actualites
-        \App\Models\Actualite::factory(10)->create();
-
-        // Seeder pour la table commentaires
-        \App\Models\Commentaire::factory(10)->create();
-
-        // Seeder pour la table images
-        \App\Models\Image::factory(10)->create();
+        Image::factory(5)
+            ->sequence(fn () => [
+                'evenement_id' => null,
+                'actualite_id' => $actualites->random()->id,
+            ])
+            ->create();
     }
 }
