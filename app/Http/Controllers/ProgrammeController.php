@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Programme;
+use Illuminate\Http\Request;
 
 class ProgrammeController extends Controller
 {
@@ -12,8 +12,10 @@ class ProgrammeController extends Controller
     public function index()
     {
         $programmes = Programme::all();
+
         return view('user.pages.programme', compact('programmes'));
     }
+
     public function create()
     {
         return view('programmes.create');
@@ -34,6 +36,7 @@ class ProgrammeController extends Controller
     public function show($id)
     {
         $programme = Programme::findOrFail($id);
+
         return view('user.pages.programmeDetail', compact('programme'));
     }
 

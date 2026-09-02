@@ -9,7 +9,7 @@ class Evenement extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'programme_id', 'titre', 'description', 'lieu', 'date', 'année_event', 'image'];
+    protected $fillable = ['programme_id', 'titre', 'description', 'lieu', 'date', 'année_event', 'image'];
 
     public function programme()
     {

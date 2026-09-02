@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Image;
+use App\Models\Actualite;
 use App\Models\Evenement;
-use \App\Models\Actualite;
+use App\Models\Image;
+use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
@@ -13,6 +13,7 @@ class ImageController extends Controller
     public function index()
     {
         $images = Image::with(['evenement', 'actualite'])->get();
+
         return view('images.index', compact('images'));
     }
 
@@ -20,6 +21,7 @@ class ImageController extends Controller
     {
         $evenements = Evenement::all();
         $actualites = Actualite::all();
+
         return view('images.create', compact('evenements', 'actualites'));
     }
 
@@ -35,6 +37,7 @@ class ImageController extends Controller
 
         return redirect()->route('images.index')->with('success', 'Image créée avec succès');
     }
+
     public function show(Image $image)
     {
         return view('images.show', compact('image'));

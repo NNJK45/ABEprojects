@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Commentaire;
 use App\Models\Evenement;
+use Illuminate\Http\Request;
 
 class CommentaireController extends Controller
 {
@@ -12,12 +12,14 @@ class CommentaireController extends Controller
     public function index()
     {
         $commentaires = Commentaire::with('evenement')->get();
+
         return view('commentaires.index', compact('commentaires'));
     }
 
     public function create()
     {
         $evenements = Evenement::all();
+
         return view('commentaires.create', compact('evenements'));
     }
 
@@ -41,6 +43,7 @@ class CommentaireController extends Controller
     public function edit(Commentaire $commentaire)
     {
         $evenements = Evenement::all();
+
         return view('commentaires.edit', compact('commentaire', 'evenements'));
     }
 
@@ -55,11 +58,11 @@ class CommentaireController extends Controller
 
         return redirect()->route('commentaires.index')->with('success', 'Commentaire mis à jour avec succès');
     }
+
     public function destroy(Commentaire $commentaire)
     {
         $commentaire->delete();
 
         return redirect()->route('commentaires.index')->with('success', 'Commentaire supprimé avec succès');
     }
-
 }

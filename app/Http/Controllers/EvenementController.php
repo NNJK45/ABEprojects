@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Evenement;
 use App\Models\Programme;
 use Illuminate\Http\Request;
@@ -11,12 +12,15 @@ class EvenementController extends Controller
     public function index()
     {
         $evenements = Evenement::all();
+
         return view('user.pages.evenement', compact('evenements'));
     }
+
     public function create()
     {
         return view('evenements.create');
     }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -37,6 +41,7 @@ class EvenementController extends Controller
     public function show($id)
     {
         $event = Programme::findOrFail($id);
+
         return view('user.pages.eventDetails', compact('event'));
     }
 

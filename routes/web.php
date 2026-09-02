@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\ActualiteController;
 use App\Http\Controllers\EvenementController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProgrammeController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +21,6 @@ Route::prefix('abe')->group(function () {
         return view('user.home');
     })->name('home');
 
-
     // Route::get('/admin', function() {
     //     return view('/pages/AdminPages/home');
     // } );
@@ -35,7 +34,7 @@ Route::prefix('abe')->group(function () {
     })->name('gallery');
 
     //Route::get('/news', function () {
-      //  return view('pages/news');
+    //  return view('pages/news');
     //})->name('news');
 
     Route::get('/newsDetail', function () {
@@ -43,7 +42,7 @@ Route::prefix('abe')->group(function () {
     })->name('newsDetail');
 
     //Route::get('/event', function () {
-     //   return view('pages/evenement');
+    //   return view('pages/evenement');
     //})->name('event');
 
     Route::get('/about', function () {

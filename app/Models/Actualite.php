@@ -10,5 +10,4 @@ class Actualite extends Model
     use HasFactory;
 
     protected $fillable = ['titre', 'contenu', 'date_publication'];
-
 }
