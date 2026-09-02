@@ -23,6 +23,24 @@
                         </a>
                     </li>
                     <li class="nk-menu-item">
+                        <a href="{{ route('admin.programmes.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-book"></em></span>
+                            <span class="nk-menu-text">Programmes</span>
+                        </a>
+                    </li>
+                    <li class="nk-menu-item">
+                        <a href="{{ route('admin.evenements.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-calendar"></em></span>
+                            <span class="nk-menu-text">Événements</span>
+                        </a>
+                    </li>
+                    <li class="nk-menu-item">
+                        <a href="{{ route('admin.actualites.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-file-docs"></em></span>
+                            <span class="nk-menu-text">Actualités</span>
+                        </a>
+                    </li>
+                    <li class="nk-menu-item">
                         <a href="{{ route('home') }}" class="nk-menu-link" target="_blank" rel="noopener">
                             <span class="nk-menu-icon"><em class="icon ni ni-globe"></em></span>
                             <span class="nk-menu-text">Voir le site public</span>
