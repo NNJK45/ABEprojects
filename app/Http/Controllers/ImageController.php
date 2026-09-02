@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ImageRequest;
 use App\Models\Actualite;
 use App\Models\Evenement;
 use App\Models\Image;
-use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
@@ -25,15 +25,9 @@ class ImageController extends Controller
         return view('images.create', compact('evenements', 'actualites'));
     }
 
-    public function store(Request $request)
+    public function store(ImageRequest $request)
     {
-        $request->validate([
-            'url' => 'required|string|max:255',
-            'evenement_id' => 'nullable|required_without:actualite_id|prohibited_with:actualite_id|exists:evenements,id',
-            'actualite_id' => 'nullable|required_without:evenement_id|prohibited_with:evenement_id|exists:actualites,id',
-        ]);
-
-        Image::create($request->all());
+        Image::create($request->validated());
 
         return redirect()->route('images.index')->with('success', 'Image créée avec succès');
     }

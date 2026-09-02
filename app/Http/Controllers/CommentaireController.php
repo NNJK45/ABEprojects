@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentaireRequest;
 use App\Models\Commentaire;
 use App\Models\Evenement;
-use Illuminate\Http\Request;
 
 class CommentaireController extends Controller
 {
@@ -23,14 +23,9 @@ class CommentaireController extends Controller
         return view('commentaires.create', compact('evenements'));
     }
 
-    public function store(Request $request)
+    public function store(CommentaireRequest $request)
     {
-        $request->validate([
-            'evenement_id' => 'required|exists:evenements,id',
-            'contenu' => 'required|string',
-        ]);
-
-        Commentaire::create($request->all());
+        Commentaire::create($request->validated());
 
         return redirect()->route('commentaires.index')->with('success', 'Commentaire créé avec succès');
     }
@@ -47,14 +42,9 @@ class CommentaireController extends Controller
         return view('commentaires.edit', compact('commentaire', 'evenements'));
     }
 
-    public function update(Request $request, Commentaire $commentaire)
+    public function update(CommentaireRequest $request, Commentaire $commentaire)
     {
-        $request->validate([
-            'evenement_id' => 'required|exists:evenements,id',
-            'contenu' => 'required|string',
-        ]);
-
-        $commentaire->update($request->all());
+        $commentaire->update($request->validated());
 
         return redirect()->route('commentaires.index')->with('success', 'Commentaire mis à jour avec succès');
     }

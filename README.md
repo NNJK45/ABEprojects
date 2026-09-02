@@ -2,7 +2,7 @@
 
 Plateforme web de l'Académie du Bien-Être (ABE). Le projet contient un site public présentant les programmes, événements, actualités et activités de l'association, ainsi qu'une base d'interface d'administration.
 
-> État du projet : reprise technique en cours. Le site public est consultable, mais certaines fonctions métier et la sécurité du back-office restent à finaliser. Voir les audits des [phases 1](docs/phase-1-audit.md) et [2](docs/phase-2-domain-model.md).
+> État du projet : reprise technique en cours. Le site public est consultable, mais certaines fonctions métier et la sécurité du back-office restent à finaliser. Voir les audits des [phases 1](docs/phase-1-audit.md), [2](docs/phase-2-domain-model.md) et [3](docs/phase-3-application-architecture.md).
 
 ## Stack technique
 
@@ -132,3 +132,5 @@ chore/technical-recovery
 Le rapport de remise en état, les routes vérifiées et les dettes détectées sont consignés dans [`docs/phase-1-audit.md`](docs/phase-1-audit.md). Les dépendances verrouillées datent de 2024 et présentent plusieurs avis de sécurité : leur mise à niveau contrôlée est obligatoire avant une mise en production.
 
 Le modèle de données normalisé et la stratégie de compatibilité sont décrits dans [`docs/phase-2-domain-model.md`](docs/phase-2-domain-model.md).
+
+La structure des routes, la validation et les conventions HTTP sont décrites dans [`docs/phase-3-application-architecture.md`](docs/phase-3-application-architecture.md).

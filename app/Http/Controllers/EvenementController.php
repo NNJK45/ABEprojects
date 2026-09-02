@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EvenementRequest;
 use App\Models\Evenement;
-use Illuminate\Http\Request;
 
 class EvenementController extends Controller
 {
     //
     public function index()
     {
-        $evenements = Evenement::all();
+        $evenements = Evenement::query()
+            ->with('programme')
+            ->orderBy('date')
+            ->orderBy('id')
+            ->paginate(9);
 
         return view('user.pages.evenement', compact('evenements'));
     }
@@ -20,28 +24,18 @@ class EvenementController extends Controller
         return view('evenements.create');
     }
 
-    public function store(Request $request)
+    public function store(EvenementRequest $request)
     {
-        $request->validate([
-            'programme_id' => 'nullable|exists:programmes,id',
-            'titre' => 'required|string|max:255',
-            'description' => 'required|string',
-            'lieu' => 'required|string|max:255',
-            'date' => 'required|date',
-            'annee_event' => 'required|integer|digits:4',
-            'image' => 'required|string|max:255',
-        ]);
+        Evenement::create($request->validated());
 
-        Evenement::create($request->all());
-
-        return redirect()->route('evenements.index')->with('success', 'Événement créé avec succès');
+        return redirect()->route('event')->with('success', 'Événement créé avec succès');
     }
 
-    public function show($id)
+    public function show(Evenement $evenement)
     {
-        $event = Evenement::findOrFail($id);
+        $evenement->loadMissing(['programme', 'commentaires', 'images']);
 
-        return view('user.pages.eventDetails', compact('event'));
+        return view('user.pages.eventDetails', ['event' => $evenement]);
     }
 
     public function edit(Evenement $evenement)
@@ -49,27 +43,17 @@ class EvenementController extends Controller
         return view('evenements.edit', compact('evenement'));
     }
 
-    public function update(Request $request, Evenement $evenement)
+    public function update(EvenementRequest $request, Evenement $evenement)
     {
-        $request->validate([
-            'programme_id' => 'nullable|exists:programmes,id',
-            'titre' => 'required|string|max:255',
-            'description' => 'required|string',
-            'lieu' => 'required|string|max:255',
-            'date' => 'required|date',
-            'annee_event' => 'required|integer|digits:4',
-            'image' => 'required|string|max:255',
-        ]);
+        $evenement->update($request->validated());
 
-        $evenement->update($request->all());
-
-        return redirect()->route('evenements.index')->with('success', 'Événement mis à jour avec succès');
+        return redirect()->route('event')->with('success', 'Événement mis à jour avec succès');
     }
 
     public function destroy(Evenement $evenement)
     {
         $evenement->delete();
 
-        return redirect()->route('evenements.index')->with('success', 'Événement supprimé avec succès');
+        return redirect()->route('event')->with('success', 'Événement supprimé avec succès');
     }
 }

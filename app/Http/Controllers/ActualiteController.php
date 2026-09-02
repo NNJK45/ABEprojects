@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ActualiteRequest;
 use App\Models\Actualite;
-use Illuminate\Http\Request;
 
 class ActualiteController extends Controller
 {
     //
     public function index()
     {
-        $actualites = Actualite::all();
+        $actualites = Actualite::query()
+            ->latest('date_publication')
+            ->latest('id')
+            ->paginate(9);
 
         return view('user.pages.news', compact('actualites'));
     }
@@ -20,18 +23,11 @@ class ActualiteController extends Controller
         return view('actualites.create');
     }
 
-    public function store(Request $request)
+    public function store(ActualiteRequest $request)
     {
-        $request->validate([
-            'titre' => 'required|string|max:255',
-            'contenu' => 'required|string',
-            'date_publication' => 'required|date',
-            'image' => 'required|string|max:255',
-        ]);
+        Actualite::create($request->validated());
 
-        Actualite::create($request->all());
-
-        return redirect()->route('actualites.index')->with('success', 'Actualité créée avec succès');
+        return redirect()->route('news')->with('success', 'Actualité créée avec succès');
     }
 
     public function show(Actualite $actualite)
@@ -44,24 +40,17 @@ class ActualiteController extends Controller
         return view('actualites.edit', compact('actualite'));
     }
 
-    public function update(Request $request, Actualite $actualite)
+    public function update(ActualiteRequest $request, Actualite $actualite)
     {
-        $request->validate([
-            'titre' => 'required|string|max:255',
-            'contenu' => 'required|string',
-            'date_publication' => 'required|date',
-            'image' => 'required|string|max:255',
-        ]);
+        $actualite->update($request->validated());
 
-        $actualite->update($request->all());
-
-        return redirect()->route('actualites.index')->with('success', 'Actualité mise à jour avec succès');
+        return redirect()->route('news')->with('success', 'Actualité mise à jour avec succès');
     }
 
     public function destroy(Actualite $actualite)
     {
         $actualite->delete();
 
-        return redirect()->route('actualites.index')->with('success', 'Actualité supprimée avec succès');
+        return redirect()->route('news')->with('success', 'Actualité supprimée avec succès');
     }
 }

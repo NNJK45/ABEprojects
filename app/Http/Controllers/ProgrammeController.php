@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProgrammeRequest;
 use App\Models\Programme;
-use Illuminate\Http\Request;
 
 class ProgrammeController extends Controller
 {
@@ -11,7 +11,10 @@ class ProgrammeController extends Controller
 
     public function index()
     {
-        $programmes = Programme::all();
+        $programmes = Programme::query()
+            ->latest()
+            ->latest('id')
+            ->paginate(9);
 
         return view('user.pages.programme', compact('programmes'));
     }
@@ -21,21 +24,16 @@ class ProgrammeController extends Controller
         return view('programmes.create');
     }
 
-    public function store(Request $request)
+    public function store(ProgrammeRequest $request)
     {
-        $request->validate([
-            'nom' => 'required|string|max:255',
-            'description' => 'required|string',
-        ]);
+        Programme::create($request->validated());
 
-        Programme::create($request->all());
-
-        return redirect()->route('programmes.index')->with('success', 'Programme créé avec succès');
+        return redirect()->route('programme')->with('success', 'Programme créé avec succès');
     }
 
-    public function show($id)
+    public function show(Programme $programme)
     {
-        $programme = Programme::findOrFail($id);
+        $programme->loadMissing('evenements');
 
         return view('user.pages.programmeDetail', compact('programme'));
     }
@@ -45,22 +43,17 @@ class ProgrammeController extends Controller
         return view('programmes.edit', compact('programme'));
     }
 
-    public function update(Request $request, Programme $programme)
+    public function update(ProgrammeRequest $request, Programme $programme)
     {
-        $request->validate([
-            'nom' => 'required|string|max:255',
-            'description' => 'required|string',
-        ]);
+        $programme->update($request->validated());
 
-        $programme->update($request->all());
-
-        return redirect()->route('programmes.index')->with('success', 'Programme mis à jour avec succès');
+        return redirect()->route('programme')->with('success', 'Programme mis à jour avec succès');
     }
 
     public function destroy(Programme $programme)
     {
         $programme->delete();
 
-        return redirect()->route('programmes.index')->with('success', 'Programme supprimé avec succès');
+        return redirect()->route('programme')->with('success', 'Programme supprimé avec succès');
     }
 }
