@@ -2,13 +2,18 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Evenement;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EvenementRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        $evenement = $this->route('evenement');
+
+        return $evenement instanceof Evenement
+            ? $this->user()?->can('update', $evenement) === true
+            : $this->user()?->can('create', Evenement::class) === true;
     }
 
     public function rules(): array

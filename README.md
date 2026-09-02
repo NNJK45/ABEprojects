@@ -2,7 +2,7 @@
 
 Plateforme web de l'Académie du Bien-Être (ABE). Le projet contient un site public présentant les programmes, événements, actualités et activités de l'association, ainsi qu'une base d'interface d'administration.
 
-> État du projet : reprise technique en cours. Le site public est consultable, mais certaines fonctions métier et la sécurité du back-office restent à finaliser. Voir les audits des [phases 1](docs/phase-1-audit.md), [2](docs/phase-2-domain-model.md) et [3](docs/phase-3-application-architecture.md).
+> État du projet : reprise technique en cours. Le site public est consultable et le back-office est protégé par authentification. Voir les audits des [phases 1](docs/phase-1-audit.md), [2](docs/phase-2-domain-model.md), [3](docs/phase-3-application-architecture.md) et [4](docs/phase-4-security.md).
 
 ## Stack technique
 
@@ -52,6 +52,12 @@ php artisan migrate:fresh --seed
 
 Le fichier `.env` et la base SQLite locale sont ignorés par Git. Ne jamais y enregistrer de secret destiné au dépôt.
 
+Créer ensuite le premier administrateur avec une commande interactive qui ne conserve pas le mot de passe dans l'historique du terminal :
+
+```bash
+php artisan abe:create-admin admin@example.com --name="Administrateur ABE"
+```
+
 ## Démarrage
 
 Ouvrir deux terminaux dans le dossier du projet.
@@ -68,7 +74,7 @@ Terminal 2 — Vite :
 npm run dev
 ```
 
-Le site public est disponible sur [http://127.0.0.1:8000/abe](http://127.0.0.1:8000/abe) et l'interface d'administration actuelle sur [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin).
+Le site public est disponible sur [http://127.0.0.1:8000/abe](http://127.0.0.1:8000/abe). La connexion à l'administration est disponible sur [http://127.0.0.1:8000/admin/login](http://127.0.0.1:8000/admin/login).
 
 La racine `/` n'est pas encore reliée au site et retourne volontairement une réponse 404 dans l'état actuel.
 
@@ -134,3 +140,5 @@ Le rapport de remise en état, les routes vérifiées et les dettes détectées 
 Le modèle de données normalisé et la stratégie de compatibilité sont décrits dans [`docs/phase-2-domain-model.md`](docs/phase-2-domain-model.md).
 
 La structure des routes, la validation et les conventions HTTP sont décrites dans [`docs/phase-3-application-architecture.md`](docs/phase-3-application-architecture.md).
+
+L'authentification, les rôles, les policies et la procédure de création d'un administrateur sont documentés dans [`docs/phase-4-security.md`](docs/phase-4-security.md).

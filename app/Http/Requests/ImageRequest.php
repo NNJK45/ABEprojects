@@ -2,13 +2,18 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Image;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ImageRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        $image = $this->route('image');
+
+        return $image instanceof Image
+            ? $this->user()?->can('update', $image) === true
+            : $this->user()?->can('create', Image::class) === true;
     }
 
     public function rules(): array

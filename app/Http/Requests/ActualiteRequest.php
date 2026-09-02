@@ -2,13 +2,18 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Actualite;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ActualiteRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        $actualite = $this->route('actualite');
+
+        return $actualite instanceof Actualite
+            ? $this->user()?->can('update', $actualite) === true
+            : $this->user()?->can('create', Actualite::class) === true;
     }
 
     public function rules(): array
