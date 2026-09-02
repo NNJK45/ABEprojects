@@ -2,7 +2,7 @@
 
 Plateforme web de l'Académie du Bien-Être (ABE). Le projet contient un site public présentant les programmes, événements, actualités et activités de l'association, ainsi qu'une base d'interface d'administration.
 
-> État du projet : reprise technique en cours. Le site public est consultable et le back-office permet la gestion sécurisée des contenus. Voir les audits des [phases 1](docs/phase-1-audit.md), [2](docs/phase-2-domain-model.md), [3](docs/phase-3-application-architecture.md), [4](docs/phase-4-security.md) et [5](docs/phase-5-admin-content-management.md).
+> État du projet : reprise technique en cours. Le back-office gère les contenus et le site public les restitue dynamiquement. Voir les audits des [phases 1](docs/phase-1-audit.md), [2](docs/phase-2-domain-model.md), [3](docs/phase-3-application-architecture.md), [4](docs/phase-4-security.md), [5](docs/phase-5-admin-content-management.md) et [6](docs/phase-6-public-experience.md).
 
 ## Stack technique
 
@@ -144,3 +144,5 @@ La structure des routes, la validation et les conventions HTTP sont décrites da
 L'authentification, les rôles, les policies et la procédure de création d'un administrateur sont documentés dans [`docs/phase-4-security.md`](docs/phase-4-security.md).
 
 Les modules du back-office, leurs droits d'accès et les protections de gestion sont documentés dans [`docs/phase-5-admin-content-management.md`](docs/phase-5-admin-content-management.md).
+
+La finalisation des pages publiques et du formulaire de contact est documentée dans [`docs/phase-6-public-experience.md`](docs/phase-6-public-experience.md).

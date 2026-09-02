@@ -2,14 +2,19 @@
 
 use App\Http\Controllers\ActualiteController;
 use App\Http\Controllers\EvenementController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProgrammeController;
+use App\Http\Controllers\PublicContactController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('abe')->group(function () {
-    Route::view('/', 'user.home')->name('home');
+    Route::get('/', HomeController::class)->name('home');
     Route::view('/contact', 'user.pages.contact')->name('contact');
-    Route::view('/gallery', 'user.pages.gallery')->name('gallery');
-    Route::view('/newsDetail', 'user.pages.newsDetail')->name('newsDetail');
+    Route::post('/contact', [PublicContactController::class, 'store'])
+        ->middleware('throttle:5,1')
+        ->name('contact.store');
+    Route::get('/gallery', GalleryController::class)->name('gallery');
     Route::view('/about', 'user.pages.about')->name('about');
 
     Route::get('/programme', [ProgrammeController::class, 'index'])->name('programme');
@@ -23,4 +28,7 @@ Route::prefix('abe')->group(function () {
         ->name('event.details');
 
     Route::get('/actualite', [ActualiteController::class, 'index'])->name('news');
+    Route::get('/actualite/{actualite}', [ActualiteController::class, 'show'])
+        ->whereNumber('actualite')
+        ->name('news.details');
 });

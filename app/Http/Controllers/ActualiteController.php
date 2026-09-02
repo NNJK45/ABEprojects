@@ -32,7 +32,14 @@ class ActualiteController extends Controller
 
     public function show(Actualite $actualite)
     {
-        return view('actualites.show', compact('actualite'));
+        $actualite->loadMissing('images');
+        $recentes = Actualite::query()
+            ->whereKeyNot($actualite->getKey())
+            ->latest('date_publication')
+            ->limit(4)
+            ->get();
+
+        return view('user.pages.newsDetail', compact('actualite', 'recentes'));
     }
 
     public function edit(Actualite $actualite)

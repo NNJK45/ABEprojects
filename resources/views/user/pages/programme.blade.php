@@ -1,4 +1,5 @@
 @extends('user.layouts.app')
+@section('title', 'Programmes')
 
 @section('content')
     <div class="page-banner-area overlay section">
@@ -22,7 +23,7 @@
                     <div class="col-lg-4 col-md-6 col-12 mb-30">
                         <div class="course-item">
                             <a class="image" href="{{ route('programme.details', $programme) }}">
-                                <img src="{{ asset('assets/img/course/1.jpg') }}" alt="Programme {{ $programme->nom }}">
+                                <img src="{{ asset('assets/img/course/1.jpg') }}" alt="Programme {{ $programme->nom }}" loading="lazy">
                             </a>
                             <div class="content">
                                 <h4 class="title">

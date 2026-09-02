@@ -1,4 +1,5 @@
 @extends('user.layouts.app')
+@section('title', 'Événements')
 
 @section('content')
     <div class="page-banner-area overlay section">
@@ -21,7 +22,7 @@
                 @forelse ($evenements as $event)
                     <div class="col-lg-4 col-md-6 col-12 mb-30">
                         <div class="event-item">
-                            <img src="{{ $event->image }}" alt="Événement {{ $event->titre }}">
+                            <img src="{{ $event->image }}" alt="Événement {{ $event->titre }}" loading="lazy">
                             <span class="date">{{ $event->date->format('d') }} <span>{{ $event->date->format('M') }}</span></span>
                             <div class="content">
                                 <h3><a href="{{ route('event.details', $event) }}">{{ $event->titre }}</a></h3>

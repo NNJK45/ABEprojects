@@ -1,4 +1,5 @@
 @extends('user.layouts.app')
+@section('title', 'Actualités')
 
 @section('content')
     <div class="page-banner-area overlay section">
@@ -22,14 +23,15 @@
                     <div class="col-lg-4 col-md-6 col-12 mb-30">
                         <article class="news-item">
                             <div class="image">
-                                <img src="{{ $actualite->image }}" alt="Actualité {{ $actualite->titre }}">
+                                <img src="{{ $actualite->image }}" alt="Actualité {{ $actualite->titre }}" loading="lazy">
                             </div>
                             <div class="content">
-                                <h3>{{ $actualite->titre }}</h3>
+                                <h3><a href="{{ route('news.details', $actualite) }}">{{ $actualite->titre }}</a></h3>
                                 <div class="news-meta fix">
                                     <span><i class="zmdi zmdi-calendar-check"></i>{{ $actualite->date_publication->format('d/m/Y') }}</span>
                                 </div>
                                 <p>{{ \Illuminate\Support\Str::limit($actualite->contenu, 160) }}</p>
+                                <a href="{{ route('news.details', $actualite) }}">Lire la suite</a>
                             </div>
                         </article>
                     </div>

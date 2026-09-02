@@ -12,7 +12,7 @@
     <div class="card card-bordered"><div class="card-inner p-0"><table class="table table-tranx">
         <thead><tr><th>Expéditeur</th><th>Message</th><th>Date</th><th class="text-right">Actions</th></tr></thead>
         <tbody>@forelse($messages as $message)
-            <tr><td>{{ $message->user?->name }}<br><small>{{ $message->user?->email }}</small></td>
+            <tr><td>{{ $message->user?->name ?? $message->sender_name }}<br><small>{{ $message->user?->email ?? $message->sender_email }}</small></td>
                 <td>{{ \Illuminate\Support\Str::limit($message->contenu, 80) }}</td><td>{{ $message->created_at->format('d/m/Y H:i') }}</td>
                 <td class="text-right"><a class="btn btn-sm btn-outline-primary" href="{{ route('admin.messages.show', $message) }}">Lire</a>
                     <form class="d-inline" method="POST" action="{{ route('admin.messages.destroy', $message) }}" onsubmit="return confirm('Supprimer ce message ?')">@csrf @method('DELETE')<button class="btn btn-sm btn-outline-danger">Supprimer</button></form>

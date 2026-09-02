@@ -34,8 +34,13 @@ class EvenementController extends Controller
     public function show(Evenement $evenement)
     {
         $evenement->loadMissing(['programme', 'commentaires', 'images']);
+        $autresEvenements = Evenement::query()
+            ->whereKeyNot($evenement->getKey())
+            ->orderBy('date')
+            ->limit(4)
+            ->get();
 
-        return view('user.pages.eventDetails', ['event' => $evenement]);
+        return view('user.pages.eventDetails', ['event' => $evenement, 'autresEvenements' => $autresEvenements]);
     }
 
     public function edit(Evenement $evenement)

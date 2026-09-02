@@ -1,4 +1,5 @@
 @extends('user.layouts.app')
+@section('title', 'Contact')
 
 @section('content')
 
@@ -11,8 +12,8 @@
                     <h1>Contactez-nous</h1>
                     <!-- Breadcrumb -->
                     <ul class="breadcrumb">
-                        <li><a href="index.html">Accueil</a></li>
-                        <li><a href="#">Contactez-nous</a></li>
+                        <li><a href="{{ route('home') }}">Accueil</a></li>
+                        <li>Contactez-nous</li>
                     </ul>
                 </div>
             </div>
@@ -26,39 +27,39 @@
             <div class="contact-wrapper row">
                 <div class="col-md-4 offset-lg-1 col-sm-5 col-xs-12 mb-50">
                     <!-- Contact Info -->
-                    <h4>contact info</h4>
+                    <h4>Coordonnées</h4>
                     <div class="contact-info">
-                        <p><i class="zmdi zmdi-phone"></i><span>+237 690 450 704/675 693 123 </span></p>
-                        <p><i class="zmdi zmdi-email"></i><span>Academiebe18@gmail.com</span></p>
-                        <p><i class="zmdi zmdi-pin"></i><span>yaounde, cameroun<br>
-                                </span></p>
+                        @if($siteSetting?->contact_phone)<p><i class="zmdi zmdi-phone"></i><span>{{ $siteSetting->contact_phone }}</span></p>@endif
+                        @if($siteSetting?->contact_email)<p><i class="zmdi zmdi-email"></i><span>{{ $siteSetting->contact_email }}</span></p>@endif
+                        @if($siteSetting?->address)<p><i class="zmdi zmdi-pin"></i><span>{{ $siteSetting->address }}</span></p>@endif
                     </div>
                     <!-- Contact Social -->
-                    <h4>social media</h4>
+                    <h4>Réseaux sociaux</h4>
                     <div class="contact-social fix">
                         <a href="https://web.facebook.com/acadmiedubienetre?locale=fr_FR"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-rss"></i></a>
-                        <a href="academiedubienetre.org"><i class="fa fa-google-plus"></i></a>
-                        <a href="www.pinterest.html"><i class="fa fa-pinterest"></i></a>
-                        <a href="www.instagram.html"><i class="fa fa-instagram"></i></a>
                     </div>
                 </div>
                 <!-- Contact Form -->
                 <div class="col-lg-6 col-md-8 col-sm-7 col-xs-12">
-                    <h4>send your massage</h4>
-                    <form id="contact-form" class="contact-form" action="https://whizthemes.com/mail-php/other/mail.php" method="post">
+                    <h4>Envoyez-nous un message</h4>
+                    @if(session('success'))<div class="alert alert-success" role="alert">{{ session('success') }}</div>@endif
+                    @if($errors->any())<div class="alert alert-danger" role="alert"><ul class="mb-0">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>@endif
+                    <form id="contact-form" class="contact-form" action="{{ route('contact.store') }}" method="post">
+                        @csrf
                         <div class="row">
                             <div class="col-md-6 col-12 mb-20">
-                                <input type="text" name="con_name" id="name" placeholder="Name">
+                                <input type="text" name="name" id="name" value="{{ old('name') }}" placeholder="Nom" required maxlength="255">
                             </div>
                             <div class="col-md-6 col-12 mb-20">
-                                <input type="email" name="con_email" id="mail" placeholder="Email">
+                                <input type="email" name="email" id="mail" value="{{ old('email') }}" placeholder="Email" required maxlength="255">
                             </div>
+                            <div class="col-12 mb-20"><input type="text" name="subject" value="{{ old('subject') }}" placeholder="Objet" maxlength="255"></div>
+                            <div aria-hidden="true" style="position:absolute;left:-9999px"><label for="website">Site web</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
                             <div class="col-12 mb-20">
-                                <textarea name="con_message" id="message" cols="30" rows="10" placeholder="Message"></textarea>
+                                <textarea name="message" id="message" cols="30" rows="10" placeholder="Message" required minlength="10" maxlength="5000">{{ old('message') }}</textarea>
                             </div>
                             <div class="col-12">
-                                <button class="btn-submit" type="submit">Submit</button>
+                                <button class="btn-submit" type="submit">Envoyer</button>
                             </div>
                         </div>
                     </form>
