@@ -2,7 +2,7 @@
 
 Plateforme web de l'Académie du Bien-Être (ABE). Le projet contient un site public présentant les programmes, événements, actualités et activités de l'association, ainsi qu'une base d'interface d'administration.
 
-> État du projet : reprise technique en cours. Le site public est consultable et le back-office est protégé par authentification. Voir les audits des [phases 1](docs/phase-1-audit.md), [2](docs/phase-2-domain-model.md), [3](docs/phase-3-application-architecture.md) et [4](docs/phase-4-security.md).
+> État du projet : reprise technique en cours. Le site public est consultable et le back-office permet la gestion sécurisée des contenus. Voir les audits des [phases 1](docs/phase-1-audit.md), [2](docs/phase-2-domain-model.md), [3](docs/phase-3-application-architecture.md), [4](docs/phase-4-security.md) et [5](docs/phase-5-admin-content-management.md).
 
 ## Stack technique
 
@@ -76,7 +76,7 @@ npm run dev
 
 Le site public est disponible sur [http://127.0.0.1:8000/abe](http://127.0.0.1:8000/abe). La connexion à l'administration est disponible sur [http://127.0.0.1:8000/admin/login](http://127.0.0.1:8000/admin/login).
 
-La racine `/` n'est pas encore reliée au site et retourne volontairement une réponse 404 dans l'état actuel.
+La racine `/` redirige vers le site public `/abe`.
 
 ## Commandes de contrôle
 
@@ -120,7 +120,7 @@ La base locale ne doit jamais être commitée. Les changements de structure doiv
 - `database/seeders` : données locales de démonstration
 - `resources/views/user` : vues du site public
 - `resources/views/admin` : vues et template d'administration
-- `routes/web.php` : routes publiques et administratives
+- `routes/web.php`, `routes/public.php`, `routes/admin.php` : chargement et séparation des routes
 - `tests` : tests automatisés
 
 ## Contribution et Git
@@ -130,7 +130,7 @@ Les conventions de branches, commits et pull requests sont documentées dans [`C
 Travail de reprise en cours sur la branche :
 
 ```text
-chore/technical-recovery
+feat/admin-content-management
 ```
 
 ## Problèmes connus
@@ -142,3 +142,5 @@ Le modèle de données normalisé et la stratégie de compatibilité sont décri
 La structure des routes, la validation et les conventions HTTP sont décrites dans [`docs/phase-3-application-architecture.md`](docs/phase-3-application-architecture.md).
 
 L'authentification, les rôles, les policies et la procédure de création d'un administrateur sont documentés dans [`docs/phase-4-security.md`](docs/phase-4-security.md).
+
+Les modules du back-office, leurs droits d'accès et les protections de gestion sont documentés dans [`docs/phase-5-admin-content-management.md`](docs/phase-5-admin-content-management.md).

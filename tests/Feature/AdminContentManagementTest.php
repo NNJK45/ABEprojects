@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\Actualite;
 use App\Models\Evenement;
+use App\Models\Image;
+use App\Models\Message;
 use App\Models\Programme;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -105,5 +107,63 @@ class AdminContentManagementTest extends TestCase
 
         $this->delete(route('admin.actualites.destroy', $actualite));
         $this->assertDatabaseMissing('actualites', ['id' => $actualite->id]);
+    }
+
+    public function test_editor_can_manage_images_with_exactly_one_owner(): void
+    {
+        $evenement = Evenement::factory()->create();
+        $actualite = Actualite::factory()->create();
+
+        $this->actingAs($this->editor)
+            ->post(route('admin.images.store'), [
+                'url' => 'https://example.test/gallery.jpg',
+                'evenement_id' => $evenement->id,
+                'actualite_id' => $actualite->id,
+            ])
+            ->assertSessionHasErrors(['evenement_id', 'actualite_id']);
+
+        $this->post(route('admin.images.store'), [
+            'url' => 'https://example.test/gallery.jpg',
+            'evenement_id' => $evenement->id,
+        ])->assertRedirect(route('admin.images.index'));
+
+        $image = Image::query()->firstOrFail();
+        $this->get(route('admin.images.index', ['q' => 'gallery']))
+            ->assertOk()
+            ->assertSee($evenement->nom);
+
+        $this->put(route('admin.images.update', $image), [
+            'url' => 'https://example.test/news-gallery.jpg',
+            'actualite_id' => $actualite->id,
+        ])->assertRedirect(route('admin.images.index'));
+        $this->assertDatabaseHas('images', [
+            'id' => $image->id,
+            'evenement_id' => null,
+            'actualite_id' => $actualite->id,
+        ]);
+
+        $this->delete(route('admin.images.destroy', $image));
+        $this->assertDatabaseMissing('images', ['id' => $image->id]);
+    }
+
+    public function test_editor_can_read_search_and_delete_messages(): void
+    {
+        $sender = User::factory()->create(['name' => 'Client ABE']);
+        $message = Message::factory()->for($sender)->create([
+            'contenu' => 'Demande de partenariat institutionnel.',
+        ]);
+
+        $this->actingAs($this->editor)
+            ->get(route('admin.messages.index', ['q' => 'partenariat']))
+            ->assertOk()
+            ->assertSee('Client ABE');
+
+        $this->get(route('admin.messages.show', $message))
+            ->assertOk()
+            ->assertSee('Demande de partenariat institutionnel.');
+
+        $this->delete(route('admin.messages.destroy', $message))
+            ->assertRedirect(route('admin.messages.index'));
+        $this->assertDatabaseMissing('messages', ['id' => $message->id]);
     }
 }

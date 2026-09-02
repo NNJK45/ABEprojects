@@ -41,6 +41,34 @@
                         </a>
                     </li>
                     <li class="nk-menu-item">
+                        <a href="{{ route('admin.images.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-img"></em></span>
+                            <span class="nk-menu-text">Médiathèque</span>
+                        </a>
+                    </li>
+                    <li class="nk-menu-item">
+                        <a href="{{ route('admin.messages.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-mail"></em></span>
+                            <span class="nk-menu-text">Messages</span>
+                        </a>
+                    </li>
+                    @can('viewAny', App\Models\User::class)
+                    <li class="nk-menu-item">
+                        <a href="{{ route('admin.users.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                            <span class="nk-menu-text">Utilisateurs</span>
+                        </a>
+                    </li>
+                    @endcan
+                    @if(auth()->user()->isAdmin())
+                    <li class="nk-menu-item">
+                        <a href="{{ route('admin.settings.edit') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-setting"></em></span>
+                            <span class="nk-menu-text">Paramètres</span>
+                        </a>
+                    </li>
+                    @endif
+                    <li class="nk-menu-item">
                         <a href="{{ route('home') }}" class="nk-menu-link" target="_blank" rel="noopener">
                             <span class="nk-menu-icon"><em class="icon ni ni-globe"></em></span>
                             <span class="nk-menu-text">Voir le site public</span>

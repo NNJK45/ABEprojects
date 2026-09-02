@@ -28,6 +28,15 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
+                                <div class="card card-bordered"><div class="card-inner"><h2 class="title">{{ $imageCount }}</h2><p>Images</p></div></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card card-bordered"><div class="card-inner"><h2 class="title">{{ $messageCount }}</h2><p>Messages</p></div></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card card-bordered"><div class="card-inner"><h2 class="title">{{ $userCount }}</h2><p>Utilisateurs</p></div></div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="card card-bordered">
                                     <div class="card-inner">
                                         <h2 class="title">{{ $evenementCount }}</h2>

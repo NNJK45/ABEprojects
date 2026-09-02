@@ -8,8 +8,10 @@ use App\Models\Evenement;
 use App\Models\Image;
 use App\Models\Message;
 use App\Models\Programme;
+use App\Models\SiteSetting;
 use App\Models\User;
 use App\Policies\ContentPolicy;
+use App\Policies\SiteSettingPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -27,6 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         Image::class => ContentPolicy::class,
         Message::class => ContentPolicy::class,
         Programme::class => ContentPolicy::class,
+        SiteSetting::class => SiteSettingPolicy::class,
         User::class => UserPolicy::class,
     ];
 
