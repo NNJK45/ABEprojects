@@ -10,7 +10,7 @@ class GalleryController extends Controller
     public function __invoke(): View
     {
         $images = Image::query()
-            ->with(['evenement:id,titre', 'actualite:id,titre'])
+            ->with(['programme:id,nom', 'evenement:id,titre', 'actualite:id,titre'])
             ->latest()
             ->paginate(12);
 

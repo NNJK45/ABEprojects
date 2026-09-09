@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\ManagesMediaGallery;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ActualiteRequest;
 use App\Models\Actualite;
@@ -11,6 +12,8 @@ use Illuminate\View\View;
 
 class ActualiteController extends Controller
 {
+    use ManagesMediaGallery;
+
     public function index(Request $request): View
     {
         $search = trim((string) $request->query('q'));
@@ -30,19 +33,41 @@ class ActualiteController extends Controller
 
     public function store(ActualiteRequest $request): RedirectResponse
     {
-        Actualite::query()->create($request->validated());
+        $data = $request->safe()->except(['image_file', 'gallery_images', 'remove_gallery_images']);
+
+        if ($request->hasFile('image_file')) {
+            $data['image'] = $request->file('image_file')->store('actualites', 'public');
+        }
+
+        $actualite = Actualite::query()->create($data);
+        $this->storeGalleryImages($request, $actualite, 'actualites/gallery');
 
         return to_route('admin.actualites.index')->with('success', 'Actualité créée.');
     }
 
     public function edit(Actualite $actualite): View
     {
+        $actualite->load('images');
+
         return view('admin.actualites.edit', compact('actualite'));
     }
 
     public function update(ActualiteRequest $request, Actualite $actualite): RedirectResponse
     {
-        $actualite->update($request->validated());
+        $data = $request->safe()->except(['image_file', 'gallery_images', 'remove_gallery_images']);
+        $previousImage = $actualite->image;
+
+        if ($request->hasFile('image_file')) {
+            $data['image'] = $request->file('image_file')->store('actualites', 'public');
+        }
+
+        $actualite->update($data);
+        $this->removeSelectedGalleryImages($request, $actualite);
+        $this->storeGalleryImages($request, $actualite, 'actualites/gallery');
+
+        if ($request->hasFile('image_file')) {
+            $this->deleteLocalMedia($previousImage);
+        }
 
         return to_route('admin.actualites.index')->with('success', 'Actualité mise à jour.');
     }
@@ -50,7 +75,10 @@ class ActualiteController extends Controller
     public function destroy(Actualite $actualite): RedirectResponse
     {
         $this->authorize('delete', $actualite);
+        $image = $actualite->image;
+        $this->deleteGalleryImages($actualite);
         $actualite->delete();
+        $this->deleteLocalMedia($image);
 
         return to_route('admin.actualites.index')->with('success', 'Actualité supprimée.');
     }

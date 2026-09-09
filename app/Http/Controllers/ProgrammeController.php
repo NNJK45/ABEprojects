@@ -33,7 +33,7 @@ class ProgrammeController extends Controller
 
     public function show(Programme $programme)
     {
-        $programme->loadMissing('evenements');
+        $programme->loadMissing(['evenements', 'images']);
 
         return view('user.pages.programmeDetail', compact('programme'));
     }

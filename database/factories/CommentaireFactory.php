@@ -21,6 +21,7 @@ class CommentaireFactory extends Factory
         return [
             //
             'evenement_id' => Evenement::factory(),
+            'author_name' => $this->faker->name,
             'contenu' => $this->faker->paragraph,
         ];
     }

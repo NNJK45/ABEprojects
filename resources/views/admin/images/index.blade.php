@@ -10,7 +10,7 @@
         </div></div>
         @include('admin.components.feedback')
         <form class="mb-3" method="GET"><div class="input-group">
-            <input class="form-control" name="q" value="{{ $search }}" placeholder="Rechercher par URL">
+            <input class="form-control" name="q" value="{{ $search }}" placeholder="Rechercher une image">
             <div class="input-group-append"><button class="btn btn-outline-primary">Rechercher</button></div>
         </div></form>
         <div class="card card-bordered"><div class="card-inner p-0"><table class="table table-tranx">
@@ -18,9 +18,9 @@
             <tbody>
             @forelse ($images as $image)
                 <tr>
-                    <td><img src="{{ $image->url }}" alt="" width="72" height="48" style="object-fit: cover"></td>
-                    <td>{{ $image->evenement?->nom ?? $image->actualite?->titre }}</td>
-                    <td class="text-break">{{ $image->url }}</td>
+                    <td><img src="{{ $image->image_url }}" alt="" width="72" height="48" style="object-fit: cover; border-radius: 8px"></td>
+                    <td>{{ $image->programme?->nom ?? $image->evenement?->titre ?? $image->actualite?->titre }}</td>
+                    <td class="text-break">{{ basename($image->url) }}</td>
                     <td class="text-right">
                         <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.images.edit', $image) }}">Modifier</a>
                         <form class="d-inline" method="POST" action="{{ route('admin.images.destroy', $image) }}" onsubmit="return confirm('Supprimer cette image ?')">

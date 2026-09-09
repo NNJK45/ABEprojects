@@ -22,6 +22,8 @@ class DashboardController extends Controller
             'imageCount' => Image::query()->count(),
             'messageCount' => Message::query()->count(),
             'userCount' => User::query()->count(),
+            'recentMessages' => Message::query()->with('user:id,name,email')->latest()->limit(5)->get(),
+            'recentEvents' => Evenement::query()->with('programme:id,nom')->orderBy('date')->limit(5)->get(),
         ]);
     }
 }

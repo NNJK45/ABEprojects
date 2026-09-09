@@ -14,10 +14,10 @@
             <div class="input-group-append"><button class="btn btn-outline-primary">Rechercher</button></div>
         </div></form>
         <div class="card card-bordered"><div class="card-inner p-0"><table class="table table-tranx">
-            <thead><tr><th>Nom</th><th>Créé le</th><th class="text-right">Actions</th></tr></thead>
+            <thead><tr><th>Programme</th><th>Créé le</th><th class="text-right">Actions</th></tr></thead>
             <tbody>
             @forelse ($programmes as $programme)
-                <tr><td>{{ $programme->nom }}</td><td>{{ $programme->created_at->format('d/m/Y') }}</td><td class="text-right">
+                <tr><td><div class="abe-programme-cell"><span class="abe-programme-thumb">@if($programme->image_url)<img src="{{ $programme->image_url }}" alt="">@else<em class="icon ni ni-book"></em>@endif</span><span><strong>{{ $programme->nom }}</strong><small>{{ Str::limit($programme->description, 70) }}</small></span></div></td><td>{{ $programme->created_at->format('d/m/Y') }}</td><td class="text-right">
                     <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.programmes.edit', $programme) }}">Modifier</a>
                     <form class="d-inline" method="POST" action="{{ route('admin.programmes.destroy', $programme) }}" onsubmit="return confirm('Supprimer ce programme ?')">
                         @csrf @method('DELETE')<button class="btn btn-sm btn-outline-danger">Supprimer</button>

@@ -6,6 +6,7 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProgrammeController;
 use App\Http\Controllers\PublicContactController;
+use App\Http\Controllers\PublicEventCommentController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('abe')->group(function () {
@@ -26,6 +27,10 @@ Route::prefix('abe')->group(function () {
     Route::get('/event/{evenement}', [EvenementController::class, 'show'])
         ->whereNumber('evenement')
         ->name('event.details');
+    Route::post('/event/{evenement}/commentaires', [PublicEventCommentController::class, 'store'])
+        ->whereNumber('evenement')
+        ->middleware('throttle:3,1')
+        ->name('event.comments.store');
 
     Route::get('/actualite', [ActualiteController::class, 'index'])->name('news');
     Route::get('/actualite/{actualite}', [ActualiteController::class, 'show'])

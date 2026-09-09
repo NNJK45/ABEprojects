@@ -23,7 +23,7 @@
                     <div class="col-lg-4 col-md-6 col-12 mb-30">
                         <article class="news-item">
                             <div class="image">
-                                <img src="{{ $actualite->image }}" alt="Actualité {{ $actualite->titre }}" loading="lazy">
+                                <img src="{{ $actualite->image_url }}" alt="Actualité {{ $actualite->titre }}" loading="lazy">
                             </div>
                             <div class="content">
                                 <h3><a href="{{ route('news.details', $actualite) }}">{{ $actualite->titre }}</a></h3>

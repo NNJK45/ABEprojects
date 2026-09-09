@@ -26,6 +26,7 @@
 
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="/assets/css/responsive.css">
+    <link rel="stylesheet" href="/assets/css/abe-public.css">
 
     <!-- Modernizr JS -->
     <script src="/assets/js/vendor/modernizr-3.11.2.min.js"></script>
@@ -34,60 +35,21 @@
 <body>
     <a href="#contenu-principal" class="sr-only sr-only-focusable">Aller au contenu principal</a>
 
-    <!-- Header Area Start -->
-    <header class="header-area section">
-        <!-- Header Top -->
-        <div class="header-top section">
-            <div class="container">
-                <div class="row">
-                    <!-- Header Top Left -->
-                    <div class="header-top-left text-start col-7">
-                        <p>Une question ? {{ $siteSetting?->contact_phone ?? '+237 690 450 704' }}</p>
-                    </div>
-                    <!-- Header Top Right -->
-                    <div class="header-top-right text-end col-5">
-                        <ul>
-                            <li><a href="{{ route('contact') }}">Nous contacter</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Header Bottom -->
-        <div class="header-bottom bg-white sticker section sticker">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <!-- Header Logo -->
-                        <div class="header-logo float-start">
-                            <a href="{{ route('home') }}"><img src="/assets/img/logo/logoo.png" alt="logo"></a>
-                        </div>
-                        <!-- Main Menu -->
-                        <div class="main-menu float-end hidden-xs">
-                            <nav>
-                                <ul>
-                                    <li class="active"><a href="{{ route('home') }}">Accueil</a></li>
-
-                                    <li><a href="{{ route('programme') }}">Programmes</a>
-                                    <li><a href="{{ route('event') }}">Evenements</a>
-                                    </li>
-                                    <li><a href="{{ route('news') }}">Actualités</a> </li>
-                                    <li><a href="{{ route('gallery') }}">Galerie</a></li>
-
-
-
-                                    <li><a href="{{ route('about') }}">À propos de nous</a></li>
-                                    <li><a href="{{ route('contact') }}">Contact</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <!-- Mobile Menu -->
-                        <div class="mobile-menu"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    <header class="abe-site-header">
+        <div class="abe-topbar"><div class="container"><span><i class="fa fa-map-marker"></i> Yaoundé, Cameroun</span><div><a href="tel:{{ preg_replace('/\s+/', '', $siteSetting?->contact_phone ?? '+237690450704') }}"><i class="fa fa-phone"></i> {{ $siteSetting?->contact_phone ?? '+237 690 450 704' }}</a><a href="https://www.facebook.com/acadmiedubienetre/" target="_blank" rel="noopener"><i class="fa fa-facebook"></i> Suivre l’ABE</a></div></div></div>
+        <div class="abe-navbar"><div class="container">
+            <a class="abe-site-brand" href="{{ route('home') }}"><img src="/assets/img/logo/logoo.png" alt="Académie du Bien-Être"><span><strong>Académie du Bien-Être</strong><small>Éducation · Entrepreneuriat · Santé</small></span></a>
+            <button class="abe-menu-toggle" type="button" aria-expanded="false" aria-controls="abe-navigation"><span></span><span></span><span></span><span class="sr-only">Ouvrir le menu</span></button>
+            <nav id="abe-navigation" class="abe-navigation" aria-label="Navigation principale"><ul>
+                <li><a @class(['active' => request()->routeIs('home')]) href="{{ route('home') }}">Accueil</a></li>
+                <li><a @class(['active' => request()->routeIs('programme*')]) href="{{ route('programme') }}">Programmes</a></li>
+                <li><a @class(['active' => request()->routeIs('event*')]) href="{{ route('event') }}">Événements</a></li>
+                <li><a @class(['active' => request()->routeIs('news*')]) href="{{ route('news') }}">Actualités</a></li>
+                <li><a @class(['active' => request()->routeIs('gallery')]) href="{{ route('gallery') }}">Galerie</a></li>
+                <li><a @class(['active' => request()->routeIs('about')]) href="{{ route('about') }}">À propos</a></li>
+            </ul></nav>
+            <a class="abe-header-cta" href="{{ route('contact') }}">Nous contacter</a>
+        </div></div>
     </header>
 
         <main id="contenu-principal">
@@ -108,6 +70,7 @@
             <!-- main JS
 ============================================ -->
             <script src="/assets/js/main.js"></script>
+            <script>document.querySelector('.abe-menu-toggle')?.addEventListener('click', function () { const nav = document.querySelector('.abe-navigation'); const open = nav.classList.toggle('is-open'); this.setAttribute('aria-expanded', open ? 'true' : 'false'); });</script>
 
     </body>
 

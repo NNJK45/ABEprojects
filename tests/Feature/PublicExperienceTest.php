@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Actualite;
+use App\Models\Commentaire;
+use App\Models\Evenement;
 use App\Models\Image;
 use App\Models\Programme;
 use App\Models\SiteSetting;
@@ -113,6 +115,41 @@ class PublicExperienceTest extends TestCase
             ->assertHeader('X-Frame-Options', 'SAMEORIGIN')
             ->assertHeader('Referrer-Policy', 'strict-origin-when-cross-origin')
             ->assertHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+    }
+
+    public function test_visitor_can_comment_on_an_event(): void
+    {
+        $evenement = Evenement::factory()->create();
+
+        $this->post(route('event.comments.store', $evenement), [
+            'author_name' => 'Visiteur ABE',
+            'contenu' => 'Cette activité est très intéressante.',
+            'website' => '',
+        ])->assertRedirect(route('event.details', $evenement).'#commentaires')
+            ->assertSessionHas('comment_success');
+
+        $this->assertDatabaseHas('commentaires', [
+            'evenement_id' => $evenement->id,
+            'author_name' => 'Visiteur ABE',
+            'contenu' => 'Cette activité est très intéressante.',
+        ]);
+    }
+
+    public function test_event_comments_are_validated_and_paginated(): void
+    {
+        $evenement = Evenement::factory()->create();
+        Commentaire::factory()->count(7)->for($evenement)->create();
+
+        $this->post(route('event.comments.store', $evenement), [
+            'author_name' => 'B',
+            'contenu' => 'Non',
+            'website' => 'spam.test',
+        ])->assertSessionHasErrors(['author_name', 'contenu', 'website']);
+
+        $response = $this->get(route('event.details', $evenement));
+        $response->assertOk()->assertSee('Commentaires');
+        $this->assertSame(5, $response->viewData('commentaires')->count());
+        $this->assertSame(7, $response->viewData('commentaires')->total());
     }
 
     public function test_health_endpoint_checks_database_connectivity(): void

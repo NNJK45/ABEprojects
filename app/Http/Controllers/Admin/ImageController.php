@@ -7,8 +7,11 @@ use App\Http\Requests\ImageRequest;
 use App\Models\Actualite;
 use App\Models\Evenement;
 use App\Models\Image;
+use App\Models\Programme;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class ImageController extends Controller
@@ -17,7 +20,7 @@ class ImageController extends Controller
     {
         $search = trim((string) $request->query('q'));
         $images = Image::query()
-            ->with(['evenement:id,nom', 'actualite:id,titre'])
+            ->with(['programme:id,nom', 'evenement:id,titre', 'actualite:id,titre'])
             ->when($search, fn ($query) => $query->where('url', 'like', "%{$search}%"))
             ->latest()
             ->paginate(15)
@@ -33,7 +36,13 @@ class ImageController extends Controller
 
     public function store(ImageRequest $request): RedirectResponse
     {
-        Image::query()->create($request->validated());
+        $data = $request->safe()->except('image_file');
+
+        if ($request->hasFile('image_file')) {
+            $data['url'] = $request->file('image_file')->store('mediatheque', 'public');
+        }
+
+        Image::query()->create($data);
 
         return to_route('admin.images.index')->with('success', 'Image ajoutée.');
     }
@@ -45,10 +54,21 @@ class ImageController extends Controller
 
     public function update(ImageRequest $request, Image $image): RedirectResponse
     {
+        $data = $request->safe()->except('image_file');
+        $previousFile = $image->url;
+
+        if ($request->hasFile('image_file')) {
+            $data['url'] = $request->file('image_file')->store('mediatheque', 'public');
+        }
+
         $image->update(array_merge(
-            ['evenement_id' => null, 'actualite_id' => null],
-            $request->validated(),
+            ['programme_id' => null, 'evenement_id' => null, 'actualite_id' => null],
+            $data,
         ));
+
+        if ($request->hasFile('image_file')) {
+            $this->deleteLocalImage($previousFile);
+        }
 
         return to_route('admin.images.index')->with('success', 'Image mise à jour.');
     }
@@ -56,7 +76,9 @@ class ImageController extends Controller
     public function destroy(Image $image): RedirectResponse
     {
         $this->authorize('delete', $image);
+        $file = $image->url;
         $image->delete();
+        $this->deleteLocalImage($file);
 
         return to_route('admin.images.index')->with('success', 'Image supprimée.');
     }
@@ -64,8 +86,16 @@ class ImageController extends Controller
     private function owners(): array
     {
         return [
-            'evenements' => Evenement::query()->orderBy('nom')->get(['id', 'nom']),
+            'programmes' => Programme::query()->orderBy('nom')->get(['id', 'nom']),
+            'evenements' => Evenement::query()->orderBy('titre')->get(['id', 'titre']),
             'actualites' => Actualite::query()->orderBy('titre')->get(['id', 'titre']),
         ];
+    }
+
+    private function deleteLocalImage(?string $file): void
+    {
+        if ($file && ! Str::startsWith($file, ['http://', 'https://'])) {
+            Storage::disk('public')->delete($file);
+        }
     }
 }

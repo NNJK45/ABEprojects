@@ -7,19 +7,24 @@
     <title>Connexion — ABE</title>
     <link rel="stylesheet" href="{{ asset('admin-assets/assets/css/dashlite.css') }}">
     <link rel="stylesheet" href="{{ asset('admin-assets/assets/css/theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin-assets/assets/css/abe-admin.css') }}">
 </head>
-<body class="nk-body bg-white npc-default pg-auth">
+<body class="nk-body npc-default pg-auth abe-login-page">
     <div class="nk-app-root">
-        <div class="nk-main">
-            <div class="nk-wrap nk-wrap-nosidebar">
-                <div class="nk-content">
-                    <div class="nk-block nk-block-middle nk-auth-body wide-xs">
-                        <div class="card card-bordered">
-                            <div class="card-inner card-inner-lg">
-                                <h1 class="nk-block-title">Administration ABE</h1>
-                                <p>Connectez-vous avec votre compte autorisé.</p>
+        <main class="abe-login-shell">
+            <section class="abe-login-brand-panel">
+                <div class="abe-login-brand"><span class="abe-brand-mark">ABE</span><span><strong>Académie du Bien-Être</strong><small>Administration ABE · Yaoundé</small></span></div>
+                <div class="abe-login-message"><span class="abe-eyebrow">ESPACE DE GESTION</span><h1>Agir, informer et accompagner.</h1><p>Gérez les programmes, événements et actualités qui portent les actions de l’ABE.</p><div class="abe-pillars"><span><em class="icon ni ni-book-read"></em>Soutien éducatif</span><span><em class="icon ni ni-growth-fill"></em>Entrepreneuriat</span><span><em class="icon ni ni-heart-fill"></em>Santé pour tous</span></div></div>
+                <small class="abe-login-credit">Une plateforme conçue pour l’équipe ABE.</small>
+            </section>
+            <section class="abe-login-form-panel">
+                <div class="abe-login-card">
+                    <div class="abe-login-icon"><em class="icon ni ni-shield-check"></em></div>
+                    <span class="abe-eyebrow">CONNEXION SÉCURISÉE</span>
+                    <h2>Bienvenue</h2>
+                    <p>Utilisez votre compte professionnel pour accéder à l’administration.</p>
 
-                                <form method="POST" action="{{ route('admin.login.store') }}">
+                                <form method="POST" action="{{ route('admin.login.store') }}" class="abe-login-form">
                                     @csrf
                                     <div class="form-group">
                                         <label class="form-label" for="email">Adresse e-mail</label>
@@ -48,14 +53,12 @@
                                         </div>
                                     </div>
 
-                                    <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
+                                    <button class="btn btn-lg btn-primary btn-block" type="submit"><span>Se connecter</span><em class="icon ni ni-arrow-right"></em></button>
                                 </form>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="abe-login-help"><em class="icon ni ni-lock-alt"></em><span>Accès réservé aux membres autorisés de l’équipe ABE.</span></div>
                 </div>
-            </div>
-        </div>
+            </section>
+        </main>
     </div>
     <script src="{{ asset('admin-assets/assets/js/bundle.js') }}"></script>
 </body>

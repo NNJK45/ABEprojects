@@ -7,9 +7,9 @@
 <div class="gallery-area section bg-white pt-120 pb-120"><div class="container">
     <div class="row">
         @forelse($images as $image)
-            @php($label = $image->evenement?->titre ?? $image->actualite?->titre ?? 'Activité ABE')
-            <a href="{{ $image->url }}" class="gallery-item image-popup col-xl-3 col-lg-4 col-sm-6 col-12">
-                <img src="{{ $image->url }}" alt="{{ $label }}" loading="lazy">
+            @php($label = $image->programme?->nom ?? $image->evenement?->titre ?? $image->actualite?->titre ?? 'Activité ABE')
+            <a href="{{ $image->image_url }}" class="gallery-item image-popup col-xl-3 col-lg-4 col-sm-6 col-12">
+                <img src="{{ $image->image_url }}" alt="{{ $label }}" loading="lazy">
             </a>
         @empty
             <div class="col-12 text-center"><p>Aucune image n’est disponible pour le moment.</p></div>
