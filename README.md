@@ -116,6 +116,29 @@ php artisan migrate:fresh --seed
 
 La base locale ne doit jamais être commitée. Les changements de structure doivent toujours être décrits par des migrations Laravel.
 
+## Déploiement de démonstration sur Render
+
+Le dépôt contient un fichier Dockerfile et un Blueprint render.yaml. Depuis Render :
+
+1. connecter le compte GitHub qui a accès à NNJK45/ABEprojects ;
+2. choisir **New > Blueprint** et sélectionner ce dépôt ;
+3. utiliser la branche feat/admin-redesign ;
+4. renseigner les trois secrets demandés :
+   - APP_KEY : résultat de la commande php artisan key:generate --show ;
+   - ADMIN_EMAIL : adresse du premier administrateur ;
+   - ADMIN_PASSWORD : mot de passe unique d'au moins 12 caractères ;
+5. valider la création du service web et de la base PostgreSQL.
+
+Le conteneur compile Vite et les dépendances PHP. Au démarrage, il crée le lien de stockage, exécute les migrations et met en cache la configuration, les routes et les vues. Lors du premier déploiement, Render initialise les contenus de démonstration et le compte administrateur. La route /health sert au contrôle de disponibilité.
+
+L'offre gratuite convient uniquement à une démonstration :
+
+- le service peut se mettre en veille après une période d'inactivité ;
+- la base PostgreSQL gratuite expire après 30 jours ;
+- le disque du service est éphémère : les nouvelles images envoyées depuis l'administration disparaîtront lors d'un redémarrage ou redéploiement.
+
+Les images de démonstration sont intégrées à l'image Docker et restent donc disponibles. Avant une mise en production réelle, connecter le disque public de Laravel à un stockage objet compatible S3, puis utiliser une base PostgreSQL durable.
+
 ## Organisation du code
 
 - `app/Http/Controllers` : contrôleurs HTTP
@@ -134,7 +157,7 @@ Les conventions de branches, commits et pull requests sont documentées dans [`C
 Travail de reprise en cours sur la branche :
 
 ```text
-feat/admin-content-management
+feat/admin-redesign
 ```
 
 ## Problèmes connus

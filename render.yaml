@@ -1,0 +1,61 @@
+services:
+  - type: web
+    name: abe-plateforme
+    runtime: docker
+    plan: free
+    region: frankfurt
+    branch: feat/admin-redesign
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    initialDeployHook: php artisan db:seed --class=RenderDeploymentSeeder --force
+    envVars:
+      - key: APP_NAME
+        value: ABE Plateforme
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_KEY
+        sync: false
+      - key: APP_TIMEZONE
+        value: Africa/Douala
+      - key: APP_LOCALE
+        value: fr
+      - key: APP_FALLBACK_LOCALE
+        value: fr
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: LOG_LEVEL
+        value: warning
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DATABASE_URL
+        fromDatabase:
+          name: abe-database
+          property: connectionString
+      - key: CACHE_STORE
+        value: file
+      - key: CACHE_DRIVER
+        value: file
+      - key: SESSION_DRIVER
+        value: file
+      - key: SESSION_SECURE_COOKIE
+        value: "true"
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: FILESYSTEM_DISK
+        value: public
+      - key: ADMIN_NAME
+        value: Administrateur ABE
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+
+databases:
+  - name: abe-database
+    plan: free
+    region: frankfurt
+    databaseName: abe
+    user: abe
