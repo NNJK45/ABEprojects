@@ -13,7 +13,7 @@
     <div class="nk-app-root">
         <main class="abe-login-shell">
             <section class="abe-login-brand-panel">
-                <div class="abe-login-brand"><span class="abe-brand-mark">ABE</span><span><strong>Académie du Bien-Être</strong><small>Administration ABE · Yaoundé</small></span></div>
+                <div class="abe-login-brand"><span class="abe-brand-mark"><img src="{{ asset('assets/img/logo/abe-logo.png') }}" alt="Logo ABE"></span><span><strong>Académie du Bien-Être</strong><small>Administration ABE · Yaoundé</small></span></div>
                 <div class="abe-login-message"><span class="abe-eyebrow">ESPACE DE GESTION</span><h1>Agir, informer et accompagner.</h1><p>Gérez les programmes, événements et actualités qui portent les actions de l’ABE.</p><div class="abe-pillars"><span><em class="icon ni ni-book-read"></em>Soutien éducatif</span><span><em class="icon ni ni-growth-fill"></em>Entrepreneuriat</span><span><em class="icon ni ni-heart-fill"></em>Santé pour tous</span></div></div>
                 <small class="abe-login-credit">Une plateforme conçue pour l’équipe ABE.</small>
             </section>
@@ -61,5 +61,6 @@
         </main>
     </div>
     <script src="{{ asset('admin-assets/assets/js/bundle.js') }}"></script>
+    <script src="{{ asset('admin-assets/assets/js/abe-admin.js') }}"></script>
 </body>
 </html>

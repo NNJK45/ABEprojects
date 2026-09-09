@@ -38,7 +38,7 @@
     <header class="abe-site-header">
         <div class="abe-topbar"><div class="container"><span><i class="fa fa-map-marker"></i> Yaoundé, Cameroun</span><div><a href="tel:{{ preg_replace('/\s+/', '', $siteSetting?->contact_phone ?? '+237690450704') }}"><i class="fa fa-phone"></i> {{ $siteSetting?->contact_phone ?? '+237 690 450 704' }}</a><a href="https://www.facebook.com/acadmiedubienetre/" target="_blank" rel="noopener"><i class="fa fa-facebook"></i> Suivre l’ABE</a></div></div></div>
         <div class="abe-navbar"><div class="container">
-            <a class="abe-site-brand" href="{{ route('home') }}"><img src="/assets/img/logo/logoo.png" alt="Académie du Bien-Être"><span><strong>Académie du Bien-Être</strong><small>Éducation · Entrepreneuriat · Santé</small></span></a>
+            <a class="abe-site-brand" href="{{ route('home') }}"><img src="/assets/img/logo/abe-logo.png" alt="Logo de l’Académie du Bien-Être"><span><strong>Académie du Bien-Être</strong><small>Éducation · Entrepreneuriat · Santé</small></span></a>
             <button class="abe-menu-toggle" type="button" aria-expanded="false" aria-controls="abe-navigation"><span></span><span></span><span></span><span class="sr-only">Ouvrir le menu</span></button>
             <nav id="abe-navigation" class="abe-navigation" aria-label="Navigation principale"><ul>
                 <li><a @class(['active' => request()->routeIs('home')]) href="{{ route('home') }}">Accueil</a></li>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\Concerns\ManagesMediaGallery;
 use App\Http\Requests\ImageRequest;
 use App\Models\Actualite;
 use App\Models\Evenement;
@@ -16,6 +17,8 @@ use Illuminate\View\View;
 
 class ImageController extends Controller
 {
+    use ManagesMediaGallery;
+
     public function index(Request $request): View
     {
         $search = trim((string) $request->query('q'));
@@ -39,7 +42,7 @@ class ImageController extends Controller
         $data = $request->safe()->except('image_file');
 
         if ($request->hasFile('image_file')) {
-            $data['url'] = $request->file('image_file')->store('mediatheque', 'public');
+            $data['url'] = $this->storeOptimizedImage($request->file('image_file'), 'mediatheque');
         }
 
         Image::query()->create($data);
@@ -58,7 +61,7 @@ class ImageController extends Controller
         $previousFile = $image->url;
 
         if ($request->hasFile('image_file')) {
-            $data['url'] = $request->file('image_file')->store('mediatheque', 'public');
+            $data['url'] = $this->storeOptimizedImage($request->file('image_file'), 'mediatheque');
         }
 
         $image->update(array_merge(

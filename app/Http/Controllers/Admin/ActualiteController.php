@@ -36,7 +36,7 @@ class ActualiteController extends Controller
         $data = $request->safe()->except(['image_file', 'gallery_images', 'remove_gallery_images']);
 
         if ($request->hasFile('image_file')) {
-            $data['image'] = $request->file('image_file')->store('actualites', 'public');
+            $data['image'] = $this->storeOptimizedImage($request->file('image_file'), 'actualites');
         }
 
         $actualite = Actualite::query()->create($data);
@@ -58,7 +58,7 @@ class ActualiteController extends Controller
         $previousImage = $actualite->image;
 
         if ($request->hasFile('image_file')) {
-            $data['image'] = $request->file('image_file')->store('actualites', 'public');
+            $data['image'] = $this->storeOptimizedImage($request->file('image_file'), 'actualites');
         }
 
         $actualite->update($data);

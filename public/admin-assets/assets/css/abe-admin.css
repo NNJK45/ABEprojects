@@ -1,17 +1,17 @@
 :root {
-    --abe-green-950: #082d1b;
-    --abe-green-900: #0b3b23;
-    --abe-green-800: #10502f;
-    --abe-green-700: #17663d;
-    --abe-green-600: #23804e;
-    --abe-green-100: #dff2e7;
-    --abe-green-50: #eff9f3;
-    --abe-ink: #15231b;
-    --abe-muted: #68766e;
-    --abe-border: #dfe7e2;
+    --abe-green-950: #043d09;
+    --abe-green-900: #05540b;
+    --abe-green-800: #076a0e;
+    --abe-green-700: #087b12;
+    --abe-green-600: #169326;
+    --abe-green-100: #e2f3df;
+    --abe-green-50: #f1f9ef;
+    --abe-ink: #132014;
+    --abe-muted: #687469;
+    --abe-border: #dce7d9;
     --abe-surface: #ffffff;
-    --abe-canvas: #f4f7f5;
-    --abe-gold: #d9a928;
+    --abe-canvas: #f7f8f2;
+    --abe-gold: #f2c21f;
     --abe-radius: 14px;
     --abe-shadow: 0 8px 30px rgba(13, 57, 35, .07);
 }
@@ -23,11 +23,12 @@
 .abe-admin .nk-content { padding-top: 88px; }
 .abe-admin .container-xl { max-width: 1440px; }
 
-.abe-sidebar { background: linear-gradient(180deg, var(--abe-green-950), #0a3521 72%, #082a1a); border-right: 0; box-shadow: 12px 0 35px rgba(5, 35, 20, .12); }
+.abe-sidebar { background: linear-gradient(180deg, var(--abe-green-950), #07570d 72%, #043506); border-right: 0; box-shadow: 12px 0 35px rgba(4, 61, 9, .14); }
 .abe-sidebar .nk-sidebar-head { height: 76px; border-bottom: 1px solid rgba(255,255,255,.09); padding: 0 22px; }
 .abe-brand { display: flex; align-items: center; gap: 12px; color: #fff; }
 .abe-brand:hover { color: #fff; }
-.abe-brand-mark { display: grid; place-items: center; width: 43px; height: 43px; border-radius: 12px; background: #fff; color: var(--abe-green-800); font-weight: 900; letter-spacing: -.05em; box-shadow: 0 5px 16px rgba(0,0,0,.2); }
+.abe-brand-mark { display: grid; place-items: center; width: 46px; height: 46px; overflow: hidden; border: 2px solid rgba(242,194,31,.8); border-radius: 50%; background: #fff; box-shadow: 0 5px 16px rgba(0,0,0,.2); }
+.abe-brand-mark img { width: 100%; height: 100%; object-fit: cover; }
 .abe-brand-copy { display: flex; flex-direction: column; line-height: 1.15; }
 .abe-brand-copy strong { font-size: .9rem; font-weight: 700; }
 .abe-brand-copy small { margin-top: 5px; color: rgba(255,255,255,.57); font-size: .69rem; letter-spacing: .08em; text-transform: uppercase; }
@@ -37,7 +38,7 @@
 .abe-sidebar .nk-menu-link { margin: 3px 0; padding: 10px 12px; color: rgba(255,255,255,.72); border-radius: 10px; }
 .abe-sidebar .nk-menu-link:hover { color: #fff; background: rgba(255,255,255,.08); }
 .abe-sidebar .nk-menu-icon { color: rgba(255,255,255,.55); }
-.abe-sidebar .nk-menu-item.active > .nk-menu-link { color: #fff; background: linear-gradient(90deg, var(--abe-green-600), #2a8957); box-shadow: 0 8px 18px rgba(0,0,0,.15); }
+.abe-sidebar .nk-menu-item.active > .nk-menu-link { color: #fff; background: linear-gradient(90deg, var(--abe-green-600), #0b7e15); border-left: 3px solid var(--abe-gold); box-shadow: 0 8px 18px rgba(0,0,0,.15); }
 .abe-sidebar .nk-menu-item.active .nk-menu-icon { color: #fff; }
 .abe-sidebar-context { display: flex; align-items: center; gap: 8px; margin: 18px 20px 3px; padding: 10px 12px; color: rgba(255,255,255,.68); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); border-radius: 10px; font-size: .72rem; }
 .abe-status-dot { display: inline-block; width: 7px; height: 7px; background: #43d17c; border-radius: 50%; box-shadow: 0 0 0 4px rgba(67,209,124,.12); }
@@ -59,7 +60,7 @@
 .abe-dashboard-hero h1 { margin: 3px 0 6px; color: #fff; font-size: clamp(1.65rem, 3vw, 2.25rem); }
 .abe-dashboard-hero p { margin: 0; color: rgba(255,255,255,.7); }
 .abe-eyebrow { display: block; color: var(--abe-green-600); font-size: .65rem; font-weight: 800; letter-spacing: .16em; }
-.abe-dashboard-hero .abe-eyebrow { color: #8ed6ad; }
+.abe-dashboard-hero .abe-eyebrow { color: var(--abe-gold); }
 .abe-hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .abe-admin .btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; border-radius: 9px; font-weight: 650; }
 .abe-admin .btn-primary { color: #fff; background: var(--abe-green-700); border-color: var(--abe-green-700); box-shadow: 0 5px 13px rgba(23,102,61,.18); }
@@ -163,6 +164,37 @@
 .abe-table-actions .btn { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-height: 32px; padding: 5px 9px; border-radius: 7px; }
 .abe-table-actions .btn-outline-secondary { color: #526484; border-color: #c8d1dc; }
 .abe-table-actions .btn-outline-secondary:hover { color: #fff; background: #526484; border-color: #526484; }
+
+/* Immediate feedback and duplicate-request protection for admin forms. */
+.btn.abe-is-loading,
+.abe-login-page .btn.abe-is-loading {
+    position: relative;
+    gap: 9px;
+    cursor: wait !important;
+    opacity: .9;
+    pointer-events: none;
+}
+.btn:disabled,
+.abe-login-page .btn:disabled {
+    cursor: not-allowed;
+    opacity: .62;
+}
+.btn.abe-is-loading:disabled,
+.abe-login-page .btn.abe-is-loading:disabled { opacity: .9; }
+.abe-button-spinner {
+    display: inline-block;
+    flex: 0 0 auto;
+    width: 15px;
+    height: 15px;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: abe-button-spin .65s linear infinite;
+}
+@keyframes abe-button-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+    .abe-button-spinner { animation-duration: 1.2s; }
+}
 
 @media (max-width: 1199px) {
     .abe-sidebar { transform: translateX(-100%); }

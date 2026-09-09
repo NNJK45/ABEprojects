@@ -2,7 +2,7 @@
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
             <a href="{{ route('admin.home') }}" class="abe-brand">
-                <span class="abe-brand-mark">ABE</span>
+                <span class="abe-brand-mark"><img src="{{ asset('assets/img/logo/abe-logo.png') }}" alt="Logo ABE"></span>
                 <span class="abe-brand-copy"><strong>Académie du Bien-Être</strong><small>Espace de gestion</small></span>
             </a>
         </div>

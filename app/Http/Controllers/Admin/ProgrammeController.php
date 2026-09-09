@@ -36,7 +36,7 @@ class ProgrammeController extends Controller
         $data = $request->safe()->except(['image', 'gallery_images', 'remove_gallery_images']);
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('programmes', 'public');
+            $data['image'] = $this->storeOptimizedImage($request->file('image'), 'programmes');
         }
 
         $programme = Programme::query()->create($data);
@@ -58,7 +58,7 @@ class ProgrammeController extends Controller
         $previousImage = $programme->image;
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('programmes', 'public');
+            $data['image'] = $this->storeOptimizedImage($request->file('image'), 'programmes');
         }
 
         $programme->update($data);

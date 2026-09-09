@@ -21,6 +21,7 @@
 
     <script src="{{ asset('admin-assets/assets/js/bundle.js') }}"></script>
     <script src="{{ asset('admin-assets/assets/js/scripts.js') }}"></script>
+    <script src="{{ asset('admin-assets/assets/js/abe-admin.js') }}"></script>
     <script>
         document.querySelectorAll('[data-gallery-uploader]').forEach(function (uploader) {
             const input = uploader.querySelector('[data-gallery-input]');

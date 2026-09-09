@@ -41,7 +41,7 @@ class EvenementController extends Controller
         $data = $request->safe()->except(['image_file', 'gallery_images', 'remove_gallery_images']);
 
         if ($request->hasFile('image_file')) {
-            $data['image'] = $request->file('image_file')->store('evenements', 'public');
+            $data['image'] = $this->storeOptimizedImage($request->file('image_file'), 'evenements');
         }
 
         $evenement = Evenement::query()->create($data);
@@ -66,7 +66,7 @@ class EvenementController extends Controller
         $previousImage = $evenement->image;
 
         if ($request->hasFile('image_file')) {
-            $data['image'] = $request->file('image_file')->store('evenements', 'public');
+            $data['image'] = $this->storeOptimizedImage($request->file('image_file'), 'evenements');
         }
 
         $evenement->update($data);

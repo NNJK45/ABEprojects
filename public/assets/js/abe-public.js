@@ -1,4 +1,28 @@
 (() => {
+    const images = document.querySelectorAll('main img:not([data-no-skeleton])');
+
+    images.forEach((image) => {
+        const container = image.parentElement;
+
+        if (!container) return;
+
+        const reveal = () => {
+            image.classList.remove('abe-image-loading');
+            image.classList.add('abe-image-loaded');
+            container.classList.remove('abe-image-skeleton');
+        };
+
+        image.classList.add('abe-image-loading');
+        container.classList.add('abe-image-skeleton');
+
+        if (image.complete) {
+            reveal();
+        } else {
+            image.addEventListener('load', reveal, { once: true });
+            image.addEventListener('error', reveal, { once: true });
+        }
+    });
+
     const carousel = document.querySelector('[data-abe-hero]');
 
     if (!carousel) {
