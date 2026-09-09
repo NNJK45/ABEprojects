@@ -1,11 +1,40 @@
 @extends('user.layouts.app')
 @section('title', 'Accueil')
 @section('content')
-<section class="abe-hero section"><div class="container"><div class="abe-hero-content"><span class="abe-kicker">ACADÉMIE DU BIEN-ÊTRE · YAOUNDÉ</span><h1>Donner à chacun les moyens de construire son avenir.</h1><p>L’ABE accompagne les enfants, les jeunes et les familles par l’éducation, l’entrepreneuriat et la promotion de la santé.</p><div class="abe-hero-actions"><a class="abe-btn abe-btn-primary" href="{{ route('programme') }}">Découvrir nos programmes</a><a class="abe-btn abe-btn-secondary" href="{{ route('contact') }}">Devenir partenaire</a></div></div></div></section>
+<section class="abe-hero section" data-abe-hero aria-roledescription="carrousel" aria-label="Actions de l’Académie du Bien-Être">
+    <div class="abe-hero-slides" aria-hidden="true">
+        <div class="abe-hero-slide is-active"><img src="/assets/img/abe-hero/abe-action-1.jpg" alt="" fetchpriority="high"></div>
+        <div class="abe-hero-slide abe-hero-slide-portrait"><img src="/assets/img/abe-hero/abe-action-2.jpg" alt="" loading="lazy"></div>
+        <div class="abe-hero-slide"><img src="/assets/img/abe-hero/abe-action-3.jpg" alt="" loading="lazy"></div>
+        <div class="abe-hero-slide abe-hero-slide-portrait"><img src="/assets/img/abe-hero/abe-action-4.jpg" alt="" loading="lazy"></div>
+        <div class="abe-hero-slide abe-hero-slide-portrait"><img src="/assets/img/abe-hero/abe-action-5.jpg" alt="" loading="lazy"></div>
+        <div class="abe-hero-slide"><img src="/assets/img/abe-hero/abe-action-6.jpg" alt="" loading="lazy"></div>
+    </div>
+    <div class="container">
+        <div class="abe-hero-content">
+            <span class="abe-kicker">ACADÉMIE DU BIEN-ÊTRE · YAOUNDÉ</span>
+            <h1>Donner à chacun les moyens de construire son avenir.</h1>
+            <p>L’ABE accompagne les enfants, les jeunes et les familles par l’éducation, l’entrepreneuriat et la promotion de la santé.</p>
+            <div class="abe-hero-actions">
+                <a class="abe-btn abe-btn-primary" href="{{ route('programme') }}">Découvrir nos programmes</a>
+                <a class="abe-btn abe-btn-secondary" href="{{ route('contact') }}">Devenir partenaire</a>
+            </div>
+        </div>
+        <div class="abe-hero-navigation" aria-label="Navigation des images">
+            <button class="abe-hero-arrow" type="button" data-abe-hero-prev aria-label="Image précédente"><i class="fa fa-angle-left" aria-hidden="true"></i></button>
+            <div class="abe-hero-dots">
+                @for($slide = 0; $slide < 6; $slide++)
+                    <button @class(['abe-hero-dot', 'is-active' => $slide === 0]) type="button" data-abe-hero-dot="{{ $slide }}" aria-label="Afficher l’image {{ $slide + 1 }}" @if($slide === 0) aria-current="true" @endif></button>
+                @endfor
+            </div>
+            <button class="abe-hero-arrow" type="button" data-abe-hero-next aria-label="Image suivante"><i class="fa fa-angle-right" aria-hidden="true"></i></button>
+        </div>
+    </div>
+</section>
 
 <section class="abe-trust-strip section"><div class="container"><div><strong>3 axes d’action</strong><span>Une approche globale du bien-être</span></div><div><strong>Ancrage local</strong><span>Des actions proches des communautés</span></div><div><strong>Impact durable</strong><span>Autonomie, prévention et transmission</span></div></div></section>
 
-<section class="abe-section abe-intro section"><div class="container"><div class="row align-items-center g-5"><div class="col-lg-6"><div class="abe-image-frame"><img src="/storage/demo/abe/galerie-solidarite.jpg" alt="Accompagnement communautaire"></div></div><div class="col-lg-6"><span class="abe-kicker">NOTRE ENGAGEMENT</span><h2>Le bien-être commence par la possibilité d’apprendre, d’agir et de prendre soin de soi.</h2><p>L’Académie du Bien-Être crée des espaces d’écoute, de formation et de mobilisation au service des personnes et des communautés.</p><a class="abe-text-link" href="{{ route('about') }}">Découvrir notre approche <i class="fa fa-arrow-right"></i></a></div></div></div></section>
+<section class="abe-section abe-intro section"><div class="container"><div class="row align-items-center g-5"><div class="col-lg-6"><div class="abe-image-frame"><img src="/assets/img/abe-engagement.jpg" alt="Activité communautaire organisée par l’Académie du Bien-Être" loading="lazy"></div></div><div class="col-lg-6"><span class="abe-kicker">NOTRE ENGAGEMENT</span><h2>Le bien-être commence par la possibilité d’apprendre, d’agir et de prendre soin de soi.</h2><p>L’Académie du Bien-Être crée des espaces d’écoute, de formation et de mobilisation au service des personnes et des communautés.</p><a class="abe-text-link" href="{{ route('about') }}">Découvrir notre approche <i class="fa fa-arrow-right"></i></a></div></div></div></section>
 
 <section class="abe-section abe-pillars-section section"><div class="container"><div class="abe-section-heading"><span class="abe-kicker">NOS PRIORITÉS</span><h2>Trois piliers pour agir durablement</h2><p>Des réponses concrètes et complémentaires aux besoins des communautés.</p></div><div class="row g-4"><div class="col-lg-4"><article class="abe-pillar"><span><i class="fa fa-book"></i></span><h3>Soutien éducatif</h3><p>Renforcer les apprentissages, l’orientation et la confiance des enfants et des jeunes.</p></article></div><div class="col-lg-4"><article class="abe-pillar"><span><i class="fa fa-line-chart"></i></span><h3>Entrepreneuriat</h3><p>Accompagner les femmes et les jeunes vers des activités économiques viables et autonomes.</p></article></div><div class="col-lg-4"><article class="abe-pillar"><span><i class="fa fa-heartbeat"></i></span><h3>Santé pour tous</h3><p>Informer, prévenir et rapprocher les services essentiels des familles et des communautés.</p></article></div></div></div></section>
 

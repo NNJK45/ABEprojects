@@ -16,6 +16,8 @@ services:
         value: production
       - key: APP_DEBUG
         value: "false"
+      - key: APP_FORCE_HTTPS
+        value: "true"
       - key: APP_KEY
         sync: false
       - key: APP_TIMEZONE

@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Enums\UserRole;
 use App\Models\Programme;
 use App\Models\User;
+use App\Providers\AppServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
@@ -25,6 +26,21 @@ class AdminAuthenticationTest extends TestCase
     {
         $this->get('/admin')->assertRedirect(route('login'));
         $this->get(route('login'))->assertOk()->assertSee('Administration ABE');
+    }
+
+    public function test_admin_assets_can_be_forced_to_https_in_production(): void
+    {
+        config(['app.force_https' => true]);
+        (new AppServiceProvider($this->app))->boot();
+        $secureBaseUrl = preg_replace('/^http:/', 'https:', config('app.url'));
+
+        $this->get('/admin/login')
+            ->assertOk()
+            ->assertSee(
+                'href="'.$secureBaseUrl.'/admin-assets/assets/css/abe-admin.css"',
+                false,
+            )
+            ->assertSee('action="'.$secureBaseUrl.'/admin/login"', false);
     }
 
     public function test_admin_can_log_in_and_log_out(): void

@@ -70,6 +70,7 @@
             <!-- main JS
 ============================================ -->
             <script src="/assets/js/main.js"></script>
+            <script src="/assets/js/abe-public.js"></script>
             <script>document.querySelector('.abe-menu-toggle')?.addEventListener('click', function () { const nav = document.querySelector('.abe-navigation'); const open = nav.classList.toggle('is-open'); this.setAttribute('aria-expanded', open ? 'true' : 'false'); });</script>
 
     </body>

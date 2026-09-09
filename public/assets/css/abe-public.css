@@ -12,3 +12,22 @@ main{min-height:60vh}.abe-hero{display:flex;align-items:center;min-height:760px;
 @media(max-width:767px){.abe-detail-cover{height:300px}}
 .abe-comment-form{margin-top:52px;padding:34px;border:1px solid var(--abe-border);border-radius:16px;background:var(--abe-cream)}.abe-comment-form h3{margin-bottom:8px;font-size:25px}.abe-comment-form>p{margin-bottom:24px}.abe-comment-form label{display:block;margin-bottom:7px;color:var(--abe-ink);font-size:13px;font-weight:750}.abe-comment-form input,.abe-comment-form textarea{width:100%;padding:12px 14px;border:1px solid #cddbd2;border-radius:8px;color:var(--abe-ink);background:#fff;outline:0}.abe-comment-form input:focus,.abe-comment-form textarea:focus{border-color:var(--abe-green-600);box-shadow:0 0 0 3px rgba(39,147,91,.12)}.abe-honeypot{position:absolute!important;left:-10000px!important}.abe-comments-panel{margin-top:24px}.abe-comments-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}.abe-comments-heading h3{margin:0}.abe-comments-heading span{display:grid;place-items:center;min-width:28px;height:28px;padding:0 8px;border-radius:99px;color:#fff;background:var(--abe-green-700);font-size:12px;font-weight:800}.abe-comment{display:flex;gap:12px;padding:18px 0;border-bottom:1px solid var(--abe-border)}.abe-comment:last-of-type{border-bottom:0}.abe-comment-avatar{flex:0 0 36px;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;color:var(--abe-green-900);background:var(--abe-green-100);font-size:13px;font-weight:900}.abe-comment>div:last-child{min-width:0;flex:1}.abe-comment header{display:flex;align-items:start;justify-content:space-between;gap:8px}.abe-comment header strong{color:var(--abe-ink);font-size:13px}.abe-comment time{white-space:nowrap;color:#8a968e;font-size:10px}.abe-comment p{margin:5px 0 0;overflow-wrap:anywhere;font-size:13px;line-height:1.55}.abe-comments-empty{padding:30px 8px;text-align:center}.abe-comments-empty i{margin-bottom:10px;color:var(--abe-green-600);font-size:30px}.abe-comments-empty p{margin:0;color:var(--abe-ink);font-weight:700}.abe-comments-empty small{font-size:11px}.abe-comments-pagination{margin-top:18px}.abe-comments-pagination .pagination{flex-wrap:wrap;margin:0;gap:4px}.abe-comments-pagination .page-link{border-radius:6px;color:var(--abe-green-700)}.abe-comments-pagination .active .page-link{border-color:var(--abe-green-700);background:var(--abe-green-700)}
 @media(max-width:767px){.abe-comment-form{padding:24px}.abe-comment header{flex-direction:column;gap:0}}
+
+/* Carrousel de la page d'accueil */
+.abe-hero{position:relative;overflow:hidden;background:var(--abe-green-950)}
+.abe-hero:after{position:absolute;z-index:1;inset:0;background:linear-gradient(90deg,rgba(3,35,21,.95) 0%,rgba(5,52,31,.84) 45%,rgba(5,52,31,.32) 100%);content:""}
+.abe-hero>.container{position:relative;z-index:2;width:100%}
+.abe-hero-slides,.abe-hero-slide{position:absolute;inset:0}
+.abe-hero-slide{opacity:0;transform:scale(1.035);transition:opacity 1.1s ease,transform 6.5s ease}
+.abe-hero-slide.is-active{opacity:1;transform:scale(1)}
+.abe-hero-slide img{width:100%;height:100%;object-fit:cover;object-position:center 48%}
+.abe-hero-slide-portrait img{object-position:center 28%}
+.abe-hero-navigation{position:absolute;right:15px;bottom:34px;display:flex;align-items:center;gap:13px}
+.abe-hero-dots{display:flex;align-items:center;gap:8px}
+.abe-hero-dot{width:8px;height:8px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.5);transition:width .25s ease,background .25s ease}
+.abe-hero-dot.is-active{width:25px;border-radius:99px;background:#fff}
+.abe-hero-arrow{display:grid;place-items:center;width:42px;height:42px;padding:0;border:1px solid rgba(255,255,255,.55);border-radius:50%;color:#fff;background:rgba(3,35,21,.35);font-size:22px;transition:.2s ease}
+.abe-hero-arrow:hover,.abe-hero-arrow:focus-visible{color:var(--abe-green-950);background:#fff}
+.abe-hero-arrow:focus-visible,.abe-hero-dot:focus-visible{outline:3px solid #91e1b2;outline-offset:3px}
+@media(max-width:767px){.abe-hero:after{background:linear-gradient(90deg,rgba(3,35,21,.93),rgba(5,52,31,.7))}.abe-hero-navigation{right:auto;bottom:22px;left:15px}.abe-hero-slide-portrait img{object-position:center 25%}.abe-hero-arrow{width:38px;height:38px}}
+@media(prefers-reduced-motion:reduce){.abe-hero-slide{transform:none;transition:opacity .15s linear}}
