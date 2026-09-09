@@ -129,7 +129,7 @@ Le dépôt contient un fichier Dockerfile et un Blueprint render.yaml. Depuis Re
    - ADMIN_PASSWORD : mot de passe unique d'au moins 12 caractères ;
 5. valider la création du service web et de la base PostgreSQL.
 
-Le conteneur compile Vite et les dépendances PHP. Au démarrage, il crée le lien de stockage, exécute les migrations, synchronise le compte administrateur depuis les secrets Render et met en cache la configuration, les routes et les vues. Lors du premier déploiement, Render initialise aussi les contenus de démonstration. La route /health sert au contrôle de disponibilité.
+Le conteneur compile Vite et les dépendances PHP. Au démarrage, il crée le lien de stockage, exécute les migrations, synchronise le compte administrateur depuis les secrets Render et met en cache la configuration, les routes et les vues. Les sessions sont conservées dans PostgreSQL pour rester valides lorsque Render remplace le conteneur. Lors du premier déploiement, Render initialise aussi les contenus de démonstration. La route /health sert au contrôle de disponibilité.
 
 L'offre gratuite convient uniquement à une démonstration :
 
