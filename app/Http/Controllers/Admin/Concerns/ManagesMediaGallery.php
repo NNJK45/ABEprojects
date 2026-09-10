@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Concerns;
 
+use Cloudinary\Cloudinary;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -19,6 +20,10 @@ trait ManagesMediaGallery
 
     protected function storeOptimizedImage(UploadedFile $file, string $directory): string
     {
+        if (config('services.cloudinary.url')) {
+            return $this->storeOnCloudinary($file, $directory);
+        }
+
         if (! function_exists('imagecreatefromstring') || ! function_exists('imagewebp')) {
             return $file->store($directory, 'public');
         }
@@ -49,7 +54,33 @@ trait ManagesMediaGallery
         imagedestroy($target);
         imagedestroy($source);
 
-        return $saved ? $path : $file->store($directory, 'public');
+        if (! $saved) {
+            return $file->store($directory, 'public');
+        }
+
+        return $path;
+    }
+
+    protected function storeOnCloudinary(UploadedFile $file, string $directory): string
+    {
+        $result = (new Cloudinary(config('services.cloudinary.url')))->uploadApi()->upload(
+            $file->getRealPath(),
+            [
+                'folder' => 'abe/'.trim($directory, '/'),
+                'resource_type' => 'image',
+                'unique_filename' => true,
+                'overwrite' => false,
+                'format' => 'webp',
+                'transformation' => [
+                    'width' => 1920,
+                    'height' => 1920,
+                    'crop' => 'limit',
+                    'quality' => 'auto:good',
+                ],
+            ],
+        );
+
+        return (string) $result['secure_url'];
     }
 
     protected function removeSelectedGalleryImages(Request $request, Model $owner): void
@@ -75,8 +106,33 @@ trait ManagesMediaGallery
 
     protected function deleteLocalMedia(?string $path): void
     {
-        if ($path && ! Str::startsWith($path, ['http://', 'https://'])) {
+        if (! $path) {
+            return;
+        }
+
+        if (Str::contains($path, 'res.cloudinary.com') && config('services.cloudinary.url')) {
+            $publicId = $this->cloudinaryPublicId($path);
+            if ($publicId) {
+                (new Cloudinary(config('services.cloudinary.url')))->uploadApi()->destroy($publicId, [
+                    'invalidate' => true,
+                    'resource_type' => 'image',
+                ]);
+            }
+
+            return;
+        }
+
+        if (! Str::startsWith($path, ['http://', 'https://'])) {
             Storage::disk('public')->delete($path);
         }
+    }
+
+    private function cloudinaryPublicId(string $url): ?string
+    {
+        $path = (string) parse_url($url, PHP_URL_PATH);
+
+        return preg_match('~/image/upload/(?:v\d+/)?(.+)\.[^.]+$~', $path, $matches)
+            ? urldecode($matches[1])
+            : null;
     }
 }

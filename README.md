@@ -123,10 +123,11 @@ Le dépôt contient un fichier Dockerfile et un Blueprint render.yaml. Depuis Re
 1. connecter le compte GitHub qui a accès à NNJK45/ABEprojects ;
 2. choisir **New > Blueprint** et sélectionner ce dépôt ;
 3. utiliser la branche feat/admin-redesign ;
-4. renseigner les trois secrets demandés :
+4. renseigner les quatre secrets demandés :
    - APP_KEY : résultat de la commande php artisan key:generate --show ;
    - ADMIN_EMAIL : adresse du premier administrateur ;
    - ADMIN_PASSWORD : mot de passe unique d'au moins 12 caractères ;
+   - CLOUDINARY_URL : URL API fournie par Cloudinary, au format cloudinary://API_KEY:API_SECRET@CLOUD_NAME ;
 5. valider la création du service web et de la base PostgreSQL.
 
 Le conteneur compile Vite et les dépendances PHP. Au démarrage, il crée le lien de stockage, exécute les migrations, synchronise le compte administrateur depuis les secrets Render et met en cache la configuration, les routes et les vues. Les sessions sont conservées dans PostgreSQL pour rester valides lorsque Render remplace le conteneur. Lors du premier déploiement, Render initialise aussi les contenus de démonstration. La route /health sert au contrôle de disponibilité.
@@ -135,9 +136,9 @@ L'offre gratuite convient uniquement à une démonstration :
 
 - le service peut se mettre en veille après une période d'inactivité ;
 - la base PostgreSQL gratuite expire après 30 jours ;
-- le disque du service est éphémère : les nouvelles images envoyées depuis l'administration disparaîtront lors d'un redémarrage ou redéploiement.
+- le disque du service est éphémère : CLOUDINARY_URL doit être configurée pour conserver les nouvelles images après un redémarrage ou un redéploiement.
 
-Les images de démonstration sont intégrées à l'image Docker et restent donc disponibles. Avant une mise en production réelle, connecter le disque public de Laravel à un stockage objet compatible S3, puis utiliser une base PostgreSQL durable.
+Les images de démonstration sont intégrées à l'image Docker et restent donc disponibles. Les nouveaux médias sont convertis en WebP, redimensionnés puis envoyés dans le dossier `abe` du compte Cloudinary. Sans identifiants Cloudinary, le stockage local reste utilisé en développement. Une base PostgreSQL durable reste nécessaire avant une mise en production réelle.
 
 ## Organisation du code
 

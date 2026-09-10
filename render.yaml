@@ -48,6 +48,8 @@ services:
         value: sync
       - key: FILESYSTEM_DISK
         value: public
+      - key: CLOUDINARY_URL
+        sync: false
       - key: ADMIN_NAME
         value: Administrateur ABE
       - key: ADMIN_EMAIL

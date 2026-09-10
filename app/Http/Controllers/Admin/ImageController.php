@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\Admin\Concerns\ManagesMediaGallery;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ImageRequest;
 use App\Models\Actualite;
 use App\Models\Evenement;
@@ -11,8 +11,6 @@ use App\Models\Image;
 use App\Models\Programme;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class ImageController extends Controller
@@ -97,8 +95,6 @@ class ImageController extends Controller
 
     private function deleteLocalImage(?string $file): void
     {
-        if ($file && ! Str::startsWith($file, ['http://', 'https://'])) {
-            Storage::disk('public')->delete($file);
-        }
+        $this->deleteLocalMedia($file);
     }
 }
